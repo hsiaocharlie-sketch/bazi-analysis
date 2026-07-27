@@ -1,6 +1,13 @@
-function calculateBazi(){
+function calculateBazi(input){
+
 
 return {
+
+
+birth:input,
+
+
+pillars:{
 
 
 year:{
@@ -24,12 +31,18 @@ zhi:"辰"
 hour:{
 gan:"壬",
 zhi:"申"
+}
+
+
 },
+
 
 
 dayMaster:"甲"
 
 
+
 };
+
 
 }
