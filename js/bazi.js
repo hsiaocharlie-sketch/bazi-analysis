@@ -6,91 +6,104 @@
 function calculateBazi(input){
 
 
-
-let year =
-calculateYearPillar(
-input.year,
-input.month,
-input.day
-);
-
-
-
-let month =
-calculateMonthPillar(
-input.year,
-input.month,
-input.day
-);
+    let date =
+    new Date(
+        input.year,
+        input.month - 1,
+        input.day
+    );
 
 
 
-let day =
-calculateDayPillar(
-input.year,
-input.month,
-input.day
-);
+    let year =
+    calculateYearPillar(
+        date
+    );
 
 
 
-let hour =
-calculateHourPillar(
-day.gan,
-input.hour
-);
+    let month =
+    calculateMonthPillar(
+        date
+    );
 
 
 
-
-let pillars={
-
-
-year:year,
-
-
-month:month,
-
-
-day:day,
-
-
-hour:hour
-
-
-};
+    let day =
+    calculateDayPillar(
+        input.year,
+        input.month,
+        input.day
+    );
 
 
 
-Object.values(pillars)
-.forEach(
-pillar=>{
-
-
-pillar.hidden =
-getHiddenStems(
-pillar.zhi
-);
-
-
-}
-);
+    let hour =
+    calculateHourPillar(
+        day.gan,
+        input.hour
+    );
 
 
 
 
-return {
+    let pillars={
 
 
-pillars:pillars,
+        year:year,
 
 
-dayMaster:
-day.gan
+        month:month,
 
 
-};
+        day:day,
 
+
+        hour:hour
+
+
+    };
+
+
+
+
+
+    Object.values(pillars)
+    .forEach(
+        pillar=>{
+
+
+            if(!pillar.hidden){
+
+                pillar.hidden=[];
+
+            }
+
+
+            pillar.hidden =
+            getHiddenStems(
+                pillar.zhi
+            );
+
+
+        }
+    );
+
+
+
+
+
+    return {
+
+
+        pillars:pillars,
+
+
+        dayMaster:
+        day.gan
+
+
+    };
 
 
 }
