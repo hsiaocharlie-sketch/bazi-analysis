@@ -1,55 +1,67 @@
 /*
-日柱计算模块
+日柱计算
 
-公历日期 -> 六十甲子日
-
-校准基准：
+校准：
 1984-01-10 = 癸卯日
 
 */
 
 
-const dayStems = [
-    "甲","乙","丙","丁","戊",
-    "己","庚","辛","壬","癸"
-];
+function calculateDayPillar(
+year,
+month,
+day
+){
 
 
-const dayBranches = [
-    "子","丑","寅","卯","辰","巳",
-    "午","未","申","酉","戌","亥"
-];
-
-
-
-function calculateJulianDay(year, month, day){
-
-
-    if(month <= 2){
-
-        year -= 1;
-        month += 12;
-
-    }
-
-
-    let A = Math.floor(year / 100);
-
-    let B = 2 - A + Math.floor(A / 4);
+let jd =
+calculateJD(
+year,
+month,
+day
+);
 
 
 
-    return (
-        Math.floor(365.25 * (year + 4716))
-        +
-        Math.floor(30.6001 * (month + 1))
-        +
-        day
-        +
-        B
-        -
-        1524.5
-    );
+let baseJD =
+2445709.5;
+
+
+
+let index =
+(
+Math.floor(jd-baseJD)
++
+39
+)
+%60;
+
+
+
+if(index<0){
+
+index+=60;
+
+}
+
+
+
+return {
+
+
+gan:
+heavenlyStems[
+index%10
+],
+
+
+zhi:
+earthlyBranches[
+index%12
+]
+
+
+};
 
 
 }
@@ -57,69 +69,48 @@ function calculateJulianDay(year, month, day){
 
 
 
-function calculateDayPillar(year, month, day){
+
+function calculateJD(
+year,
+month,
+day
+){
 
 
-    let jd =
-    calculateJulianDay(
-        year,
-        month,
-        day
-    );
+if(month<=2){
+
+year--;
+month+=12;
+
+}
 
 
-
-    /*
-    校准点：
-
-    1984-01-10
-    JD = 2445709.5
-
-    六十甲子：
-    癸卯
-
-    序号：
-    39
-
-    */
+let A =
+Math.floor(year/100);
 
 
-    let baseJD = 2445709.5;
-
-    let baseIndex = 39;
+let B =
+2-A+Math.floor(A/4);
 
 
 
-    let index =
-    (
-        Math.floor(jd - baseJD)
-        +
-        baseIndex
-    )
-    % 60;
+return (
 
+Math.floor(365.25*(year+4716))
 
++
+Math.floor(30.6001*(month+1))
 
-    if(index < 0){
++
+day
 
-        index += 60;
++
+B
 
-    }
+-
+1524.5
 
-
-
-    return {
-
-
-        gan:
-        dayStems[index % 10],
-
-
-        zhi:
-        dayBranches[index % 12]
-
-
-    };
+);
 
 
 }
