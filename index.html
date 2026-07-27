@@ -18,12 +18,10 @@
 </head>
 
 
-
 <body>
 
 
 <div class="container">
-
 
 
 <header>
@@ -36,10 +34,7 @@
 Bazi Engine Research Version
 </p>
 
-
 </header>
-
-
 
 
 
@@ -51,11 +46,9 @@ Bazi Engine Research Version
 </h2>
 
 
-
 <label>
 出生日期
 </label>
-
 
 <input 
 id="birthDate"
@@ -64,12 +57,9 @@ value="1984-01-10">
 
 
 
-
-
 <label>
 出生时间
 </label>
-
 
 <input
 id="birthTime"
@@ -78,20 +68,14 @@ value="03:30">
 
 
 
-
-
 <label>
 出生地点
 </label>
 
-
 <input
 id="location"
 type="text"
-value="大理"
-placeholder="请输入城市">
-
-
+value="大理">
 
 
 
@@ -99,23 +83,17 @@ placeholder="请输入城市">
 性别
 </label>
 
-
 <select id="gender">
-
 
 <option value="female" selected>
 女
 </option>
 
-
 <option value="male">
 男
 </option>
 
-
 </select>
-
-
 
 
 
@@ -123,54 +101,32 @@ placeholder="请输入城市">
 时间计算方式
 </label>
 
-
 <select id="timeMode">
 
-
 <option value="standard">
-
 北京时间
-
 </option>
-
 
 <option value="solar">
-
-真太阳时（开发中）
-
+真太阳时
 </option>
-
 
 </select>
 
 
 
-
-
 <button onclick="analyze()">
-
 开始分析
-
 </button>
 
 
-
 </section>
-
-
-
-
 
 
 
 <section id="report">
 
-
 </section>
-
-
-
-
 
 
 
@@ -178,12 +134,11 @@ placeholder="请输入城市">
 
 
 
-
-
-
 <script src="js/solarTerm.js"></script>
 
 <script src="js/monthPillar.js"></script>
+
+<script src="js/dayPillar.js"></script>
 
 <script src="js/bazi.js"></script>
 
@@ -194,9 +149,6 @@ placeholder="请输入城市">
 <script src="js/app.js"></script>
 
 
-
-
 </body>
-
 
 </html>
