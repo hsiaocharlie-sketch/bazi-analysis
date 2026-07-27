@@ -1,132 +1,103 @@
 /*
-月柱计算
-
-当前采用节气月框架
+月柱
 */
 
 
 function calculateMonthPillar(date,yearGan){
 
 
-
 let month =
 date.getMonth()+1;
 
 
-let branch;
+
+let branchIndex;
 
 
 
 if(month===1){
 
-branch="丑";
+branchIndex=1;
 
 }
 else if(month===2 || month===3){
 
-branch="寅";
+branchIndex=2;
 
 }
 else if(month===4){
 
-branch="卯";
+branchIndex=3;
 
 }
 else if(month===5){
 
-branch="辰";
+branchIndex=4;
 
 }
 else if(month===6){
 
-branch="巳";
+branchIndex=5;
 
 }
 else if(month===7){
 
-branch="午";
+branchIndex=6;
 
 }
 else if(month===8){
 
-branch="未";
+branchIndex=7;
 
 }
 else if(month===9){
 
-branch="申";
+branchIndex=8;
 
 }
 else if(month===10){
 
-branch="酉";
+branchIndex=9;
 
 }
 else if(month===11){
 
-branch="戌";
+branchIndex=10;
 
 }
 else{
 
-branch="亥";
+branchIndex=11;
 
 }
 
 
-
-/*
-五虎遁
-
-甲己年 丙寅月
-乙庚年 戊寅月
-丙辛年 庚寅月
-丁壬年 壬寅月
-戊癸年 甲寅月
-
-*/
 
 
 let start;
 
 
 
-if(
-yearGan==="甲" ||
-yearGan==="己"
-){
+if(yearGan==="甲"||yearGan==="己"){
 
 start=2;
 
 }
-
-else if(
-yearGan==="乙" ||
-yearGan==="庚"
-){
+else if(yearGan==="乙"||yearGan==="庚"){
 
 start=4;
 
 }
-
-else if(
-yearGan==="丙" ||
-yearGan==="辛"
-){
+else if(yearGan==="丙"||yearGan==="辛"){
 
 start=6;
 
 }
-
-else if(
-yearGan==="丁" ||
-yearGan==="壬"
-){
+else if(yearGan==="丁"||yearGan==="壬"){
 
 start=8;
 
 }
-
 else{
 
 start=0;
@@ -135,27 +106,20 @@ start=0;
 
 
 
-let branchIndex =
-earthlyBranches.indexOf(branch);
-
-
-
-let offset =
-(branchIndex-2+12)%12;
-
-
 
 return {
 
 
 gan:
 heavenlyStems[
-(start+offset)%10
+(start+branchIndex-2)%10
 ],
 
 
 zhi:
-branch
+earthlyBranches[
+branchIndex
+]
 
 
 };
