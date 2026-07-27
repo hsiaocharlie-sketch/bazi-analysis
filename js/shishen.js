@@ -1,7 +1,5 @@
 /*
-十神计算模块
-
-以日干为中心
+子平八字十神计算
 */
 
 
@@ -9,87 +7,56 @@ const stemInfo = {
 
 
 "甲":{
-    element:"木",
-    yinYang:"阳"
+element:"木",
+yinYang:"阳"
 },
 
 "乙":{
-    element:"木",
-    yinYang:"阴"
+element:"木",
+yinYang:"阴"
 },
 
-
 "丙":{
-    element:"火",
-    yinYang:"阳"
+element:"火",
+yinYang:"阳"
 },
 
 "丁":{
-    element:"火",
-    yinYang:"阴"
+element:"火",
+yinYang:"阴"
 },
 
-
 "戊":{
-    element:"土",
-    yinYang:"阳"
+element:"土",
+yinYang:"阳"
 },
 
 "己":{
-    element:"土",
-    yinYang:"阴"
+element:"土",
+yinYang:"阴"
 },
 
-
 "庚":{
-    element:"金",
-    yinYang:"阳"
+element:"金",
+yinYang:"阳"
 },
 
 "辛":{
-    element:"金",
-    yinYang:"阴"
+element:"金",
+yinYang:"阴"
 },
 
-
 "壬":{
-    element:"水",
-    yinYang:"阳"
+element:"水",
+yinYang:"阳"
 },
 
 "癸":{
-    element:"水",
-    yinYang:"阴"
+element:"水",
+yinYang:"阴"
 }
 
-
 };
-
-
-
-
-const generateMap={
-
-"木":"火",
-"火":"土",
-"土":"金",
-"金":"水",
-"水":"木"
-
-};
-
-
-
-const controlMap={
-
-"木":"土",
-"土":"水",
-"水":"火",
-"火":"金",
-"金":"木"
-
-};
-
 
 
 
@@ -99,7 +66,7 @@ function getTenGod(dayGan,targetGan){
 
 
 
-if(!dayGan || !targetGan){
+if(!targetGan){
 
 return "";
 
@@ -118,33 +85,132 @@ return "比肩";
 let day =
 stemInfo[dayGan];
 
-
 let target =
 stemInfo[targetGan];
 
 
 
-let sameYinYang =
+let same =
 day.yinYang===target.yinYang;
 
 
 
-
-
 /*
-生我者：印
+五行关系
+
+我生：
+食伤
+
+我克：
+财
+
+克我：
+官杀
+
+生我：
+印
 
 */
 
+
+let relation;
+
+
+
 if(
-generateMap[target.element]
-===
-day.element
+day.element==="木"
 ){
 
-return sameYinYang?
-"偏印":
-"正印";
+if(target.element==="火")
+relation="食伤";
+
+if(target.element==="土")
+relation="财";
+
+if(target.element==="金")
+relation="官杀";
+
+if(target.element==="水")
+relation="印";
+
+}
+
+
+if(
+day.element==="火"
+){
+
+if(target.element==="土")
+relation="食伤";
+
+if(target.element==="金")
+relation="财";
+
+if(target.element==="水")
+relation="官杀";
+
+if(target.element==="木")
+relation="印";
+
+}
+
+
+
+if(
+day.element==="土"
+){
+
+if(target.element==="金")
+relation="食伤";
+
+if(target.element==="水")
+relation="财";
+
+if(target.element==="木")
+relation="官杀";
+
+if(target.element==="火")
+relation="印";
+
+}
+
+
+
+if(
+day.element==="金"
+){
+
+if(target.element==="水")
+relation="食伤";
+
+if(target.element==="木")
+relation="财";
+
+if(target.element==="火")
+relation="官杀";
+
+if(target.element==="土")
+relation="印";
+
+}
+
+
+
+if(
+day.element==="水"
+){
+
+if(target.element==="木")
+relation="食伤";
+
+if(target.element==="火")
+relation="财";
+
+if(target.element==="土")
+relation="官杀";
+
+if(target.element==="金")
+relation="印";
 
 }
 
@@ -152,68 +218,45 @@ return sameYinYang?
 
 
 
-/*
-我生者：食伤
-
-*/
-
-if(
-generateMap[day.element]
-===
-target.element
-){
-
-return sameYinYang?
-"食神":
-"伤官";
-
-}
-
-
-
-
-
-/*
-我克者：财
-
-*/
-
-if(
-controlMap[day.element]
-===
-target.element
-){
-
-return sameYinYang?
-"偏财":
-"正财";
-
-}
-
-
-
-
-
-/*
-克我者：官杀
-
-*/
-
-if(
-controlMap[target.element]
-===
-day.element
-){
-
-return sameYinYang?
-"七杀":
-"正官";
-
-}
-
-
+if(!relation){
 
 return "";
+
+}
+
+
+
+if(relation==="食伤"){
+
+return same ? "食神":"伤官";
+
+}
+
+
+if(relation==="财"){
+
+return same ? "偏财":"正财";
+
+}
+
+
+if(relation==="官杀"){
+
+return same ? "七杀":"正官";
+
+}
+
+
+if(relation==="印"){
+
+return same ? "偏印":"正印";
+
+}
+
+
+
+return relation;
+
 
 }
 
@@ -227,6 +270,11 @@ function addTenGodToPillars(bazi){
 
 
 
+let dayGan =
+bazi.dayMaster;
+
+
+
 Object.values(
 bazi.pillars
 )
@@ -234,35 +282,56 @@ bazi.pillars
 pillar=>{
 
 
+if(
+pillar.gan===dayGan
+){
+
+pillar.tenGod="日主";
+
+}
+
+else{
+
+
 pillar.tenGod =
 getTenGod(
-bazi.dayMaster,
+dayGan,
 pillar.gan
 );
 
 
+}
 
-pillar.hiddenTenGod =
+
+
+if(
+pillar.hidden
+){
+
+
+pillar.hidden =
 pillar.hidden.map(
 item=>{
 
 
+let gan =
+typeof item==="string"
+?
+item
+:
+item.gan;
+
+
+
 return {
 
-
-gan:item.gan,
-
+gan:gan,
 
 tenGod:
 getTenGod(
-bazi.dayMaster,
-item.gan
-),
-
-
-strength:
-item.strength
-
+dayGan,
+gan
+)
 
 };
 
@@ -270,10 +339,11 @@ item.strength
 });
 
 
+}
+
+
+
 });
-
-
-return bazi;
 
 
 }
