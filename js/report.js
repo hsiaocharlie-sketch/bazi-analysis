@@ -1,4 +1,4 @@
-function createReport(bazi,analysis){
+function createReport(bazi,result){
 
 
 let html="";
@@ -18,34 +18,35 @@ html+=`
 
 <div class="pillar">
 年柱<br>
-${bazi.year.gan}${bazi.year.zhi}
+${bazi.pillars.year.gan}${bazi.pillars.year.zhi}
 </div>
 
 
 <div class="pillar">
 月柱<br>
-${bazi.month.gan}${bazi.month.zhi}
+${bazi.pillars.month.gan}${bazi.pillars.month.zhi}
 </div>
 
 
 <div class="pillar">
 日柱<br>
-${bazi.day.gan}${bazi.day.zhi}
+${bazi.pillars.day.gan}${bazi.pillars.day.zhi}
 </div>
 
 
 <div class="pillar">
 时柱<br>
-${bazi.hour.gan}${bazi.hour.zhi}
+${bazi.pillars.hour.gan}${bazi.pillars.hour.zhi}
 </div>
 
 
 </div>
+
 
 </section>
 
-`;
 
+`;
 
 
 
@@ -58,27 +59,28 @@ html+=`
 </h2>
 
 
-${createBar("木",analysis.wuxing.木,"wood")}
+${bar("木",result.wuxing.wood,"wood")}
 
-${createBar("火",analysis.wuxing.火,"fire")}
+${bar("火",result.wuxing.fire,"fire")}
 
-${createBar("土",analysis.wuxing.土,"earth")}
+${bar("土",result.wuxing.earth,"earth")}
 
-${createBar("金",analysis.wuxing.金,"metal")}
+${bar("金",result.wuxing.metal,"metal")}
 
-${createBar("水",analysis.wuxing.水,"water")}
+${bar("水",result.wuxing.water,"water")}
 
 
 </section>
 
-`;
 
+`;
 
 
 
 html+=`
 
 <section class="card">
+
 
 <h2>
 日主分析
@@ -90,30 +92,33 @@ ${bazi.dayMaster}木
 </h3>
 
 
-<h2>
-${analysis.strength.level}
-</h2>
+<p>
+状态：
+${result.strength.level}
+</p>
 
 
 <p>
 评分：
-${analysis.strength.score}
+${result.strength.score}
 </p>
 
 
-<ul>
+<div class="reason">
 
-${analysis.strength.reason
-.map(x=>`<li>${x}</li>`)
+
+${result.strength.reasons
+.map(x=>"• "+x+"<br>")
 .join("")}
 
-</ul>
+
+</div>
 
 
 </section>
 
-`;
 
+`;
 
 
 
@@ -128,32 +133,30 @@ html+=`
 
 <div class="good">
 
-第一喜：
+第一用神：
 
-${analysis.useGod.primary}
+${result.useGod.primary}
 
-</div>
+<br>
 
+喜神：
 
-<div class="good">
-
-第二喜：
-
-${analysis.useGod.secondary}
+${result.useGod.secondary}
 
 </div>
 
 
-<div class="bad">
+<div class="warning">
 
 忌：
 
-${analysis.useGod.avoid}
+${result.useGod.avoid}
 
 </div>
 
 
 </section>
+
 
 `;
 
@@ -161,11 +164,12 @@ ${analysis.useGod.avoid}
 
 return html;
 
+
 }
 
 
 
-function createBar(name,value,type){
+function bar(name,value,type){
 
 
 return `
@@ -174,7 +178,7 @@ return `
 
 ${name}
 
-<div class="bar ${type}"
+<div class="wuxing-bar ${type}"
 style="width:${value}%">
 
 </div>
