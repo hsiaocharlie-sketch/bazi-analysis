@@ -1,5 +1,5 @@
 /*
-年柱计算
+年柱
 */
 
 
@@ -32,18 +32,11 @@ year--;
 
 return {
 
-
 gan:
-heavenlyStems[
-(year-4)%10
-],
-
+heavenlyStems[(year-4)%10],
 
 zhi:
-earthlyBranches[
-(year-4)%12
-]
-
+earthlyBranches[(year-4)%12]
 
 };
 
