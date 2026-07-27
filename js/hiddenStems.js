@@ -1,168 +1,103 @@
 /*
-十二地支藏干
+地支藏干
+统一格式
 */
+
 
 const hiddenStems = {
 
 
 "子":[
-    {
-        gan:"癸",
-        strength:100
-    }
+{gan:"癸"}
 ],
 
 
 "丑":[
-    {
-        gan:"己",
-        strength:60
-    },
-    {
-        gan:"癸",
-        strength:30
-    },
-    {
-        gan:"辛",
-        strength:10
-    }
+{gan:"己"},
+{gan:"癸"},
+{gan:"辛"}
 ],
 
 
 "寅":[
-    {
-        gan:"甲",
-        strength:60
-    },
-    {
-        gan:"丙",
-        strength:30
-    },
-    {
-        gan:"戊",
-        strength:10
-    }
+{gan:"甲"},
+{gan:"丙"},
+{gan:"戊"}
 ],
 
 
 "卯":[
-    {
-        gan:"乙",
-        strength:100
-    }
+{gan:"乙"}
 ],
 
 
 "辰":[
-    {
-        gan:"戊",
-        strength:60
-    },
-    {
-        gan:"乙",
-        strength:30
-    },
-    {
-        gan:"癸",
-        strength:10
-    }
+{gan:"戊"},
+{gan:"乙"},
+{gan:"癸"}
 ],
 
 
 "巳":[
-    {
-        gan:"丙",
-        strength:60
-    },
-    {
-        gan:"戊",
-        strength:30
-    },
-    {
-        gan:"庚",
-        strength:10
-    }
+{gan:"丙"},
+{gan:"戊"},
+{gan:"庚"}
 ],
 
 
 "午":[
-    {
-        gan:"丁",
-        strength:70
-    },
-    {
-        gan:"己",
-        strength:30
-    }
+{gan:"丁"},
+{gan:"己"}
 ],
 
 
 "未":[
-    {
-        gan:"己",
-        strength:60
-    },
-    {
-        gan:"丁",
-        strength:30
-    },
-    {
-        gan:"乙",
-        strength:10
-    }
+{gan:"己"},
+{gan:"丁"},
+{gan:"乙"}
 ],
 
 
 "申":[
-    {
-        gan:"庚",
-        strength:60
-    },
-    {
-        gan:"壬",
-        strength:30
-    },
-    {
-        gan:"戊",
-        strength:10
-    }
+{gan:"庚"},
+{gan:"壬"},
+{gan:"戊"}
 ],
 
 
 "酉":[
-    {
-        gan:"辛",
-        strength:100
-    }
+{gan:"辛"}
 ],
 
 
 "戌":[
-    {
-        gan:"戊",
-        strength:60
-    },
-    {
-        gan:"辛",
-        strength:30
-    },
-    {
-        gan:"丁",
-        strength:10
-    }
+{gan:"戊"},
+{gan:"辛"},
+{gan:"丁"}
 ],
 
 
 "亥":[
-    {
-        gan:"壬",
-        strength:70
-    },
-    {
-        gan:"甲",
-        strength:30
-    }
+{gan:"壬"},
+{gan:"甲"}
 ]
 
 
 };
+
+
+
+
+
+function getHiddenStems(zhi){
+
+
+return hiddenStems[zhi]
+?
+JSON.parse(
+JSON.stringify(hiddenStems[zhi])
+)
+:
+[];
+
+}
