@@ -1,70 +1,109 @@
 /*
-程序入口
+子平八字系统入口程序
 */
 
 
 function analyze(){
 
 
-
-let input={
-
-
-
-date:
-document.getElementById(
-"birthDate"
-).value,
+    const birthDate =
+    document.getElementById("birthDate").value;
 
 
+    const birthTime =
+    document.getElementById("birthTime").value;
 
-time:
-document.getElementById(
-"birthTime"
-).value,
+
+    const location =
+    document.getElementById("location").value;
+
+
+    const gender =
+    document.getElementById("gender").value;
 
 
 
-location:
-document.getElementById(
-"location"
-).value,
+    if(!birthDate || !birthTime){
+
+        alert("请输入完整出生日期和时间");
+
+        return;
+
+    }
 
 
 
-gender:
-document.getElementById(
-"gender"
-).value
+    const input = {
 
 
-};
+        date: birthDate,
 
 
+        time: birthTime,
 
 
-let bazi =
-calculateBazi(
-input
-);
+        location: location,
 
 
+        gender: gender
 
-let result =
-analyzeBazi(
-bazi
-);
+
+    };
 
 
 
-document.getElementById(
-"report"
-).innerHTML
-=
-createReport(
-bazi,
-result
-);
+
+    try{
+
+
+        const bazi =
+        calculateBazi(input);
+
+
+
+        const result =
+        analyzeBazi(bazi);
+
+
+
+        document
+        .getElementById("report")
+        .innerHTML =
+        createReport(
+            bazi,
+            result
+        );
+
+
+
+        console.log(
+            "八字数据：",
+            bazi
+        );
+
+
+
+        console.log(
+            "分析结果：",
+            result
+        );
+
+
+    }
+
+    catch(error){
+
+
+        console.error(error);
+
+
+        alert(
+            "程序错误：\n"+
+            error.message
+        );
+
+
+    }
 
 
 
