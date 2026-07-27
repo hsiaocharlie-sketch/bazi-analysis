@@ -1,7 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+子平八字研究系统
+</title>
+
+
+<link rel="stylesheet" href="style.css?v=6">
+
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<header>
+
+<h1>
+子平八字研究系统
+</h1>
+
+<p>
+Bazi Research Engine
+</p>
+
+</header>
+
+
+
+
+
+<section class="input-card">
+
+
+<h2>
+出生资料
+</h2>
+
+
+
+<label>
+出生日期
+</label>
+
+
+<input
+id="birthDate"
+type="date"
+value="1984-01-10">
+
+
+
+
+
+<label>
+出生时间
+</label>
+
+
+<input
+id="birthTime"
+type="time"
+value="03:30">
+
+
+
+
+
+<label>
+出生地点
+</label>
+
+
+<input
+id="location"
+type="text"
+value="上海">
+
+
+
+
+
+<label>
+性别
+</label>
+
+
+<select id="gender">
+
+
+<option value="female" selected>
+女性
+</option>
+
+
+<option value="male">
+男性
+</option>
+
+
+</select>
+
+
+
+
+
+<button onclick="analyze()">
+
+开始分析
+
+</button>
+
+
+
+</section>
+
+
+
+
+
+
+<section id="report">
+
+
+</section>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- 基础数据 -->
+
 <script src="js/hiddenStems.js?v=6"></script>
 
 <script src="js/wuxing.js?v=6"></script>
 
+
+
+
+
+<!-- 四柱计算 -->
 
 <script src="js/yearPillar.js?v=6"></script>
 
@@ -12,8 +168,18 @@
 <script src="js/hourPillar.js?v=6"></script>
 
 
+
+
+
+<!-- 核心命盘 -->
+
 <script src="js/bazi.js?v=6"></script>
 
+
+
+
+
+<!-- 分析模块 -->
 
 <script src="js/shishen.js?v=6"></script>
 
@@ -26,6 +192,24 @@
 <script src="js/analysis.js?v=6"></script>
 
 
+
+
+
+<!-- 页面显示 -->
+
 <script src="js/report.js?v=6"></script>
 
+
+
+
+
+<!-- 程序入口 -->
+
 <script src="js/app.js?v=6"></script>
+
+
+
+</body>
+
+
+</html>
