@@ -1,8 +1,11 @@
 /*
 日柱计算模块
 
-使用儒略日(Julian Day)算法
-计算公历日期对应干支日
+计算：
+公历日期 -> 六十甲子日
+
+当前采用：
+儒略日算法 + 六十甲子校准
 
 */
 
@@ -19,45 +22,37 @@ const dayBranches = [
 
 
 
-function calculateJulianDay(year,month,day){
+function calculateJulianDay(year, month, day){
 
 
-if(month<=2){
+if(month <= 2){
 
-year-=1;
-
-month+=12;
+year -= 1;
+month += 12;
 
 }
 
 
 let A =
-Math.floor(year/100);
+Math.floor(year / 100);
 
 
 let B =
-2-A+Math.floor(A/4);
+2 - A + Math.floor(A / 4);
 
 
 
-let JD =
-Math.floor(
-365.25*(year+4716)
-)
+return (
+Math.floor(365.25 * (year + 4716))
 +
-Math.floor(
-30.6001*(month+1)
-)
+Math.floor(30.6001 * (month + 1))
 +
 day
 +
 B
 -
-1524.5;
-
-
-
-return JD;
+1524.5
+);
 
 
 }
@@ -65,7 +60,7 @@ return JD;
 
 
 
-function calculateDayPillar(year,month,day){
+function calculateDayPillar(year, month, day){
 
 
 let jd =
@@ -76,25 +71,41 @@ day
 );
 
 
-
 /*
-1984-01-10作为校准基准
+校准：
 
-该日为甲子日
+1984-01-10 = 癸卯日
+
+六十甲子序号：
+
+癸卯 = 38
 
 */
 
-let offset =
-Math.floor(jd-2445705.5);
+let baseJD =
+2445709.5;
+
+
+let baseIndex =
+38;
 
 
 
 let index =
-offset%60;
+(
+Math.floor(jd - baseJD)
++
+baseIndex
+)
+%60;
 
 
-if(index<0)
+
+if(index<0){
+
 index+=60;
+
+}
 
 
 
