@@ -5,19 +5,140 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<meta http-equiv="Cache-Control" content="no-cache">
-
-<title>
-子平八字研究系统
-</title>
+<title>子平八字研究系统</title>
 
 
-<link rel="stylesheet" href="style.css?v=20">
+<style>
 
+body{
+    margin:0;
+    background:#f5f1e8;
+    font-family:
+    "PingFang SC",
+    "Microsoft YaHei",
+    sans-serif;
+    color:#333;
+}
+
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+
+
+h1{
+    text-align:center;
+}
+
+
+
+.card{
+
+    background:white;
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:20px;
+
+    box-shadow:
+    0 3px 10px rgba(0,0,0,.08);
+
+}
+
+
+
+input,select,button{
+
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+
+    font-size:16px;
+
+}
+
+
+button{
+
+    background:#5c4033;
+    color:white;
+    border:none;
+    border-radius:8px;
+
+}
+
+
+
+.pillars{
+
+    display:flex;
+    justify-content:space-around;
+    text-align:center;
+
+}
+
+
+
+.pillar{
+
+    width:22%;
+
+}
+
+
+
+.title{
+
+    color:#777;
+    font-size:14px;
+
+}
+
+
+
+.shishen{
+
+    font-size:13px;
+    color:#8b4513;
+
+}
+
+
+
+.gan{
+
+    font-size:42px;
+    font-weight:bold;
+
+}
+
+
+
+.zhi{
+
+    font-size:42px;
+    font-weight:bold;
+
+}
+
+
+
+.hidden{
+
+    font-size:13px;
+    color:#555;
+
+}
+
+
+
+</style>
 
 </head>
+
 
 
 <body>
@@ -32,86 +153,589 @@
 
 
 
-<section class="input-card">
+<div class="card">
 
 
-<label>
-出生日期
-</label>
+<h2>
+出生资料
+</h2>
 
-<input id="birthDate"
+
+日期：
+
+<input id="date"
 type="date"
 value="1984-01-10">
 
 
+时间：
 
-<label>
-出生时间
-</label>
-
-<input id="birthTime"
+<input id="time"
 type="time"
 value="03:30">
 
 
 
-<label>
-出生地点
-</label>
+出生地：
 
-<input id="location"
+<input id="place"
 value="上海">
 
 
 
-<label>
-性别
-</label>
+性别：
 
 <select id="gender">
 
-<option value="female">
+<option>
 女性
 </option>
 
-<option value="male">
+<option>
 男性
 </option>
 
 </select>
 
 
-<button onclick="analyze()">
+
+<button onclick="start()">
 开始分析
 </button>
 
 
-</section>
-
-
-
-
-<div id="report">
-
-</div>
-
-
-
 </div>
 
 
 
 
 
-<script src="js/hiddenStems.js?v=20"></script>
+<div id="result">
 
-<script src="js/bazi.js?v=20"></script>
 
-<script src="js/shishen.js?v=20"></script>
+</div>
 
-<script src="js/report.js?v=20"></script>
 
-<script src="js/app.js?v=20"></script>
+
+
+</div>
+
+
+
+
+
+
+<script>
+
+
+//====================
+// 基础数据
+//====================
+
+
+const ganList=[
+"甲","乙","丙","丁","戊",
+"己","庚","辛","壬","癸"
+];
+
+
+const zhiList=[
+"子","丑","寅","卯","辰","巳",
+"午","未","申","酉","戌","亥"
+];
+
+
+
+const hiddenTable={
+
+子:["癸"],
+
+丑:["己","癸","辛"],
+
+寅:["甲","丙","戊"],
+
+卯:["乙"],
+
+辰:["戊","乙","癸"],
+
+巳:["丙","戊","庚"],
+
+午:["丁","己"],
+
+未:["己","丁","乙"],
+
+申:["庚","壬","戊"],
+
+酉:["辛"],
+
+戌:["戊","辛","丁"],
+
+亥:["壬","甲"]
+
+};
+
+
+
+
+//====================
+// 五行
+//====================
+
+
+const wuxing={
+
+甲:"木",
+乙:"木",
+
+丙:"火",
+丁:"火",
+
+戊:"土",
+己:"土",
+
+庚:"金",
+辛:"金",
+
+壬:"水",
+癸:"水"
+
+};
+
+
+
+
+//====================
+// 十神
+//====================
+
+
+function tenGod(day,target){
+
+
+if(day==target)
+return "比肩";
+
+
+let d=wuxing[day];
+let t=wuxing[target];
+
+
+let same=
+(
+ganList.indexOf(day)%2
+==
+ganList.indexOf(target)%2
+);
+
+
+
+let relation="";
+
+
+let map={
+
+
+木:{
+火:"食伤",
+土:"财",
+金:"官杀",
+水:"印"
+},
+
+
+火:{
+土:"食伤",
+金:"财",
+水:"官杀",
+木:"印"
+},
+
+
+土:{
+金:"食伤",
+水:"财",
+木:"官杀",
+火:"印"
+},
+
+
+金:{
+水:"食伤",
+木:"财",
+火:"官杀",
+土:"印"
+},
+
+
+水:{
+木:"食伤",
+火:"财",
+土:"官杀",
+金:"印"
+}
+
+
+};
+
+
+relation=
+map[d][t];
+
+
+
+if(relation=="食伤")
+return same?"食神":"伤官";
+
+
+if(relation=="财")
+return same?"偏财":"正财";
+
+
+if(relation=="官杀")
+return same?"七杀":"正官";
+
+
+if(relation=="印")
+return same?"偏印":"正印";
+
+
+}
+
+
+
+
+//====================
+// 年柱
+//====================
+
+
+function yearPillar(y){
+
+
+let gi=(y-4)%10;
+
+let zi=(y-4)%12;
+
+
+return{
+
+gan:ganList[gi],
+
+zhi:zhiList[zi]
+
+};
+
+
+}
+
+
+
+
+
+//====================
+// 日柱
+//====================
+
+
+function dayPillar(y,m,d){
+
+
+let base=
+Date.UTC(2000,0,1);
+
+
+
+let now=
+Date.UTC(y,m-1,d);
+
+
+
+let diff=
+Math.floor(
+(now-base)/86400000
+);
+
+
+
+let index=
+(16+diff)%60;
+
+
+
+if(index<0)
+index+=60;
+
+
+
+return{
+
+gan:ganList[index%10],
+
+zhi:zhiList[index%12]
+
+};
+
+
+}
+
+
+
+
+
+//====================
+// 月柱
+//====================
+
+
+function monthPillar(y,m){
+
+
+let branch=
+[
+"寅","卯","辰","巳",
+"午","未","申","酉",
+"戌","亥","子","丑"
+
+][m-1];
+
+
+
+let yg=
+yearPillar(y).gan;
+
+
+
+let start={
+
+甲:"丙",
+乙:"丙",
+丙:"戊",
+丁:"戊",
+戊:"庚",
+己:"庚",
+庚:"壬",
+辛:"壬",
+壬:"甲",
+癸:"甲"
+
+}[yg];
+
+
+
+let index=
+(
+ganList.indexOf(start)
++m-1
+)%10;
+
+
+
+return{
+
+gan:ganList[index],
+
+zhi:branch
+
+};
+
+
+}
+
+
+
+
+
+//====================
+// 时柱
+//====================
+
+
+function hourPillar(hour,dayGan){
+
+
+let zi=
+Math.floor((hour+1)/2)%12;
+
+
+
+let start={
+
+甲:0,
+己:0,
+
+乙:2,
+庚:2,
+
+丙:4,
+辛:4,
+
+丁:6,
+壬:6,
+
+戊:8,
+癸:8
+
+}[dayGan];
+
+
+
+return{
+
+gan:ganList[(start+zi)%10],
+
+zhi:zhiList[zi]
+
+};
+
+
+}
+
+
+
+
+//====================
+// 输出
+//====================
+
+
+function pillarHTML(name,p,dayGan){
+
+
+let hidden=
+hiddenTable[p.zhi]
+.map(x=>
+x+
+" "+
+tenGod(dayGan,x)
+)
+.join("<br>");
+
+
+
+return`
+
+<div class="pillar">
+
+<div class="title">
+${name}
+</div>
+
+
+<div class="shishen">
+${tenGod(dayGan,p.gan)}
+</div>
+
+
+<div class="gan">
+${p.gan}
+</div>
+
+
+<div class="zhi">
+${p.zhi}
+</div>
+
+
+<div class="hidden">
+
+藏干<br>
+${hidden}
+
+</div>
+
+
+</div>
+
+`;
+
+}
+
+
+
+
+function start(){
+
+
+let date=
+document.getElementById("date").value;
+
+
+let parts=date.split("-");
+
+
+let y=parseInt(parts[0]);
+
+let m=parseInt(parts[1]);
+
+let d=parseInt(parts[2]);
+
+
+
+let h=
+parseInt(
+document.getElementById("time").value.split(":")[0]
+);
+
+
+
+let year=
+yearPillar(y);
+
+
+let month=
+monthPillar(y,m);
+
+
+let day=
+dayPillar(y,m,d);
+
+
+let hour=
+hourPillar(h,day.gan);
+
+
+
+document.getElementById("result").innerHTML=
+
+`
+
+<div class="card">
+
+<h2>
+四柱命盘
+</h2>
+
+
+<div class="pillars">
+
+
+${pillarHTML("年柱",year,day.gan)}
+
+${pillarHTML("月柱",month,day.gan)}
+
+${pillarHTML("日柱",day,day.gan)}
+
+${pillarHTML("时柱",hour,day.gan)}
+
+
+</div>
+
+
+<h3>
+日主：${day.gan}（${wuxing[day.gan]}）
+</h3>
+
+
+</div>
+
+`;
+
+
+
+}
+
+
+</script>
 
 
 </body>
