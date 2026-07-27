@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>子平八字分析系统</title>
+<title>子平八字研究系统</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -21,41 +21,39 @@
 
 <header>
 
-<h1>
-子平八字分析系统
-</h1>
+<h1>子平八字研究系统</h1>
 
-<p>
-Bazi Analysis Engine
-</p>
+<p>Bazi Engine</p>
 
 </header>
 
 
 
-<section class="card">
+<section class="input-card">
 
 
 <h2>出生资料</h2>
 
 
-<label>
-出生日期
-</label>
+<label>出生日期</label>
 
-<input id="date" type="date">
+<input id="birthDate" type="date">
 
 
-<label>
-出生时间
-</label>
 
-<input id="time" type="time">
+<label>出生时间</label>
+
+<input id="birthTime" type="time">
 
 
-<label>
-性别
-</label>
+
+<label>出生地点</label>
+
+<input id="location" 
+placeholder="例如：大理">
+
+
+<label>性别</label>
 
 <select id="gender">
 
@@ -70,7 +68,7 @@ Bazi Analysis Engine
 </select>
 
 
-<button onclick="startAnalysis()">
+<button onclick="analyze()">
 开始分析
 </button>
 
@@ -79,10 +77,7 @@ Bazi Analysis Engine
 
 
 
-<div id="result">
-
-</div>
-
+<div id="report"></div>
 
 
 </div>
@@ -99,6 +94,5 @@ Bazi Analysis Engine
 
 
 </body>
-
 
 </html>
