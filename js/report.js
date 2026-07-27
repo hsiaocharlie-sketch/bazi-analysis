@@ -1,30 +1,24 @@
 /*
-八字报告生成模块
+报告生成
 */
 
 
-function createReport(bazi, result){
+function createReport(bazi,result){
 
 
 let html="";
 
 
-
-html += createPillarCard(
-    bazi
-);
+html+=createPillarCard(bazi);
 
 
-
-html += createDayMasterCard(
-    result
-);
+html+=createDayMasterCard(result);
 
 
+html+=createWuxingCard(result.wuxing);
 
-html += createStrengthCard(
-    result.strength
-);
+
+html+=createStrengthCard(result.strength);
 
 
 
@@ -38,6 +32,7 @@ return html;
 
 
 
+
 function createPillarCard(bazi){
 
 
@@ -45,7 +40,6 @@ let html=`
 
 
 <section class="card">
-
 
 <h2>
 四柱命盘
@@ -79,7 +73,6 @@ bazi.pillars.hour
 )}
 
 
-
 </div>
 
 
@@ -88,9 +81,7 @@ bazi.pillars.hour
 
 `;
 
-
 return html;
-
 
 }
 
@@ -103,14 +94,7 @@ return html;
 function createSinglePillar(title,pillar){
 
 
-
-let hidden="";
-
-
-if(pillar.hidden){
-
-
-hidden =
+let hidden =
 pillar.hidden
 .map(
 x=>x.gan
@@ -118,15 +102,11 @@ x=>x.gan
 .join(" ");
 
 
-}
-
-
 
 return `
 
 
 <div class="pillar">
-
 
 <h3>
 ${title}
@@ -140,13 +120,11 @@ ${pillar.gan}${pillar.zhi}
 </div>
 
 
-
-<div class="hidden">
-
+<div>
 
 藏干：
 
-${hidden || "无"}
+${hidden}
 
 </div>
 
@@ -164,8 +142,8 @@ ${hidden || "无"}
 
 
 
-function createDayMasterCard(result){
 
+function createDayMasterCard(result){
 
 
 return `
@@ -173,29 +151,17 @@ return `
 
 <section class="card">
 
-
 <h2>
-日主分析
+日主
 </h2>
 
 
 <h3>
 
 ${result.dayMaster.stem}
-
 ${result.dayMaster.element}
 
 </h3>
-
-
-
-<p>
-
-五行属性：
-
-${result.dayMaster.element}
-
-</p>
 
 
 </section>
@@ -211,19 +177,110 @@ ${result.dayMaster.element}
 
 
 
+
+function createWuxingCard(wuxing){
+
+
+
+return `
+
+
+<section class="card">
+
+
+<h2>
+五行力量
+</h2>
+
+
+${createBar(
+"木",
+wuxing["木"]
+)}
+
+
+${createBar(
+"火",
+wuxing["火"]
+)}
+
+
+${createBar(
+"土",
+wuxing["土"]
+)}
+
+
+${createBar(
+"金",
+wuxing["金"]
+)}
+
+
+${createBar(
+"水",
+wuxing["水"]
+)}
+
+
+</section>
+
+
+`;
+
+}
+
+
+
+
+
+
+
+
+function createBar(name,value){
+
+
+return `
+
+
+<div>
+
+${name}
+
+<div class="wuxing-bar"
+
+style="width:${value}%">
+
+</div>
+
+
+${value}%
+
+
+</div>
+
+
+`;
+
+}
+
+
+
+
+
+
+
+
 function createStrengthCard(strength){
 
 
-
-let reason="";
+let text="";
 
 
 strength.reasons.forEach(
-item=>{
+x=>{
 
-
-reason +=
-"• "+item+"<br>";
+text+="• "+x+"<br>";
 
 }
 );
@@ -235,23 +292,19 @@ return `
 
 <section class="card">
 
-
 <h2>
 旺衰判断
 </h2>
 
 
 <h3>
-
 ${strength.level}
-
 </h3>
 
 
 <p>
 
 评分：
-
 ${strength.score}/100
 
 </p>
@@ -259,7 +312,7 @@ ${strength.score}/100
 
 <div class="reason">
 
-${reason}
+${text}
 
 </div>
 
