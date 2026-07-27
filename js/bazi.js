@@ -16,6 +16,26 @@ const earthlyBranches = [
 
 
 
+function createPillar(data){
+
+
+return {
+
+gan:data.gan,
+
+zhi:data.zhi,
+
+hidden:
+hiddenStems[data.zhi] || []
+
+};
+
+
+}
+
+
+
+
 function calculateBazi(input){
 
 
@@ -27,9 +47,8 @@ input.date+"T"+input.time+":00"
 
 
 let year =
-calculateYearPillar(
-date
-);
+calculateYearPillar(date);
+
 
 
 let month =
@@ -39,12 +58,14 @@ year.gan
 );
 
 
+
 let day =
 calculateDayPillar(
 date.getFullYear(),
 date.getMonth()+1,
 date.getDate()
 );
+
 
 
 let hour =
@@ -64,13 +85,13 @@ birth:input,
 pillars:{
 
 
-year:year,
+year:createPillar(year),
 
-month:month,
+month:createPillar(month),
 
-day:day,
+day:createPillar(day),
 
-hour:hour
+hour:createPillar(hour)
 
 
 },
