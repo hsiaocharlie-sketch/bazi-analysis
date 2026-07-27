@@ -6,7 +6,7 @@
 function createReport(bazi,result){
 
 
-let html="";
+let html = "";
 
 
 html += createPillarCard(bazi);
@@ -31,13 +31,11 @@ return html;
 
 
 
-
-
 function createPillarCard(bazi){
 
 
 
-let pillars=[
+let pillars = [
 
 {
 name:"年柱",
@@ -63,90 +61,98 @@ data:bazi.pillars.hour
 
 
 
-let html=`
+let html = `
 
-<section class="card">
+<section class="report-card">
 
 <h2>
 四柱命盘
 </h2>
 
 
-<div class="pillars">
+<div class="bazi-table">
+
+
+<div class="row title-row">
+
+<div></div>
+<div>天干</div>
+<div>地支</div>
+
+</div>
 
 `;
 
 
 
+pillars.forEach(p=>{
 
-pillars.forEach(item=>{
 
-
-let p=item.data;
+let data=p.data;
 
 
 
 let hidden="";
 
 
+if(data.hidden){
 
-if(p.hidden){
-
-
-hidden=p.hidden
-.map(
-x=>x.gan
-)
+hidden=data.hidden
+.map(x=>x.gan)
 .join(" ");
 
-
 }
 
 
 
-
-let tenGod="";
-
-
-if(p.tenGod){
-
-tenGod=p.tenGod;
-
-}
+html += `
 
 
+<div class="row">
 
 
-html+=`
+<div class="pillar-name">
 
-<div class="pillar">
-
-
-<h3>
-${item.name}
-</h3>
-
-
-
-<div class="pillar-main">
-
-${p.gan}${p.zhi}
+${p.name}
 
 </div>
 
 
 
-<div>
+<div class="pillar-cell">
 
-十神：
+<div class="gan">
 
-${tenGod}
+${data.gan}
+
+</div>
+
+
+<div class="god">
+
+${data.tenGod || ""}
+
+</div>
+
 
 </div>
 
 
 
-<div>
+
+
+<div class="pillar-cell">
+
+
+<div class="zhi">
+
+${data.zhi}
+
+</div>
+
+
+
+<div class="hidden">
 
 藏干：
 
@@ -158,16 +164,18 @@ ${hidden}
 </div>
 
 
-`;
 
+</div>
+
+
+`;
 
 
 });
 
 
 
-
-html+=`
+html += `
 
 </div>
 
@@ -188,37 +196,36 @@ return html;
 
 
 
-
 function createDayMasterCard(result){
-
 
 
 return `
 
+<section class="report-card">
 
-<section class="card">
 
 <h2>
 日主
 </h2>
 
 
-<h3>
+<div class="daymaster">
 
 ${result.dayMaster.stem}
 
+<span>
 ${result.dayMaster.element}
+</span>
 
-</h3>
+
+</div>
 
 
 </section>
 
-
 `;
 
 }
-
 
 
 
@@ -229,7 +236,6 @@ ${result.dayMaster.element}
 function createWuxingCard(wuxing){
 
 
-
 if(!wuxing){
 
 return "";
@@ -238,54 +244,85 @@ return "";
 
 
 
-return `
+let items=[
+"木",
+"火",
+"土",
+"金",
+"水"
+];
 
 
-<section class="card">
+let html=`
 
+
+<section class="report-card">
 
 <h2>
 五行力量
 </h2>
 
-
-<p>
-木：
-${wuxing["木"]}%
-</p>
+`;
 
 
-<p>
-火：
-${wuxing["火"]}%
-</p>
+
+items.forEach(item=>{
 
 
-<p>
-土：
-${wuxing["土"]}%
-</p>
+html += `
 
 
-<p>
-金：
-${wuxing["金"]}%
-</p>
+<div class="five-row">
 
 
-<p>
-水：
-${wuxing["水"]}%
-</p>
+<div class="five-name">
+
+${item}
+
+</div>
 
 
-</section>
+<div class="bar-box">
+
+<div class="bar"
+
+style="width:${wuxing[item]}%">
+
+</div>
+
+</div>
+
+
+<div>
+
+${wuxing[item]}%
+
+</div>
+
+
+</div>
 
 
 `;
 
-}
 
+
+});
+
+
+
+html += `
+
+</section>
+
+`;
+
+
+
+return html;
+
+
+}
 
 
 
@@ -297,18 +334,9 @@ function createStrengthCard(strength){
 
 
 
-if(!strength){
-
-return "";
-
-}
-
-
-
 return `
 
-
-<section class="card">
+<section class="report-card">
 
 
 <h2>
@@ -316,33 +344,29 @@ return `
 </h2>
 
 
-<h3>
+<div class="strength-title">
 
 ${strength.level}
-
-</h3>
-
-
-<p>
-
-评分：
-${strength.score}/100
-
-</p>
-
-
-
-<div>
-
-${
-strength.reasons.join("<br>")
-}
 
 </div>
 
 
-</section>
+<div>
 
+评分：
+${strength.score}
+
+</div>
+
+
+<p>
+
+${strength.reasons.join("<br>")}
+
+</p>
+
+
+</section>
 
 `;
 
