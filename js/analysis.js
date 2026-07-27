@@ -1,5 +1,5 @@
 /*
-八字综合分析入口
+八字综合分析
 */
 
 
@@ -27,6 +27,12 @@ bazi
 
 
 
+let structure =
+analyzeStructure(
+bazi
+);
+
+
 
 return {
 
@@ -45,12 +51,14 @@ bazi.dayMaster
 },
 
 
-
-strength,
-
+strength:strength,
 
 
-wuxing
+wuxing:wuxing,
+
+
+structure:structure
+
 
 
 };
