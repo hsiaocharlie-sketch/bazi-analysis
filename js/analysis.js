@@ -12,14 +12,22 @@ calculateStrength(bazi);
 
 
 
+let wuxing =
+calculateWuxingStrength(bazi);
+
+
+
 return {
 
 
 dayMaster:{
 
+
 stem:bazi.dayMaster,
 
-element:getWuxing(
+
+element:
+getWuxing(
 bazi.dayMaster
 )
 
@@ -27,7 +35,17 @@ bazi.dayMaster
 
 
 
-strength:strength
+strength:
+
+
+strength,
+
+
+
+wuxing:
+
+
+wuxing
 
 
 
