@@ -7,13 +7,24 @@ function analyzeBazi(bazi){
 
 
 
+addTenGodToPillars(
+bazi
+);
+
+
+
 let strength =
-calculateStrength(bazi);
+calculateStrength(
+bazi
+);
 
 
 
 let wuxing =
-calculateWuxingStrength(bazi);
+calculateWuxingStrength(
+bazi
+);
+
 
 
 
@@ -35,18 +46,11 @@ bazi.dayMaster
 
 
 
-strength:
-
-
 strength,
 
 
 
-wuxing:
-
-
 wuxing
-
 
 
 };
