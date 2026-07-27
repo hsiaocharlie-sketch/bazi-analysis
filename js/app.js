@@ -1,6 +1,9 @@
 function analyze(){
 
 
+try{
+
+
 let input={
 
 
@@ -17,29 +20,77 @@ document.getElementById("location").value,
 
 
 gender:
-document.getElementById("gender").value
+document.getElementById("gender").value,
+
+
+timeMode:
+document.getElementById("timeMode").value
 
 
 };
 
 
 
-let bazi=
+console.log("输入资料:",input);
+
+
+
+let bazi =
 calculateBazi(input);
 
 
 
-let result=
+console.log("命盘:",bazi);
+
+
+
+let result =
 analyzeBazi(bazi);
 
 
 
+console.log("分析结果:",result);
+
+
+
 document.getElementById("report")
-.innerHTML=
+.innerHTML =
 createReport(
 bazi,
 result
 );
+
+
+
+}
+
+catch(error){
+
+
+console.error(error);
+
+
+
+document.getElementById("report")
+.innerHTML =
+
+`
+
+<section class="card">
+
+<h2>
+程序错误
+</h2>
+
+<p>
+${error.message}
+</p>
+
+</section>
+
+`;
+
+}
 
 
 }
