@@ -7,85 +7,94 @@ function analyzeBazi(bazi){
 
 
 
-    if(typeof addTenGodToPillars === "function"){
+if(typeof addTenGodToPillars==="function"){
 
-        addTenGodToPillars(bazi);
+addTenGodToPillars(bazi);
 
-    }
-
-
-
-    let strength = null;
-
-
-    if(typeof calculateStrength === "function"){
-
-        strength =
-        calculateStrength(bazi);
-
-    }
+}
 
 
 
-    let wuxing = null;
+let strength =
+calculateStrength(bazi);
 
 
-    if(typeof calculateWuxingStrength === "function"){
 
-        wuxing =
-        calculateWuxingStrength(bazi);
-
-    }
+let wuxing =
+calculateWuxingStrength(bazi);
 
 
 
 
-    let structure = null;
+let structure=null;
 
 
-    if(typeof analyzeStructure === "function"){
-
-        structure =
-        analyzeStructure(bazi);
-
-    }
+if(typeof analyzeStructure==="function"){
 
 
+structure=
+analyzeStructure(bazi);
 
 
-
-    return {
-
-
-        dayMaster:{
-
-
-            stem:bazi.dayMaster,
-
-
-            element:
-            getWuxing(
-                bazi.dayMaster
-            )
-
-
-        },
+}
 
 
 
-        strength:strength,
+
+let useGod=null;
+
+
+if(typeof analyzeUseGod==="function"){
+
+
+useGod=
+analyzeUseGod(
+bazi,
+strength
+);
+
+
+}
 
 
 
-        wuxing:wuxing,
+
+return {
+
+
+dayMaster:{
+
+
+stem:bazi.dayMaster,
+
+
+element:
+getWuxing(
+bazi.dayMaster
+)
+
+
+},
 
 
 
-        structure:structure
+strength:strength,
 
 
 
-    };
+wuxing:wuxing,
+
+
+
+structure:structure,
+
+
+
+useGod:useGod
+
+
+
+};
 
 
 }
