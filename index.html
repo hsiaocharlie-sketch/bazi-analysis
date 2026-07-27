@@ -4,13 +4,19 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>子平八字研究系统</title>
+<title>
+子平八字研究系统
+</title>
+
 
 <link rel="stylesheet" href="style.css">
 
+
 </head>
+
 
 
 <body>
@@ -19,68 +25,159 @@
 <div class="container">
 
 
+
 <header>
 
-<h1>子平八字研究系统</h1>
+<h1>
+子平八字研究系统
+</h1>
 
-<p>Bazi Engine</p>
+<p>
+Bazi Engine Research Version
+</p>
+
 
 </header>
+
+
 
 
 
 <section class="input-card">
 
 
-<h2>出生资料</h2>
-
-
-<label>出生日期</label>
-
-<input id="birthDate" type="date">
+<h2>
+出生资料
+</h2>
 
 
 
-<label>出生时间</label>
-
-<input id="birthTime" type="time">
-
-
-
-<label>出生地点</label>
-
-<input id="location" 
-placeholder="例如：大理">
+<label>
+出生日期
+</label>
 
 
-<label>性别</label>
+<input 
+id="birthDate"
+type="date"
+value="1984-01-10">
+
+
+
+
+
+<label>
+出生时间
+</label>
+
+
+<input
+id="birthTime"
+type="time"
+value="03:30">
+
+
+
+
+
+<label>
+出生地点
+</label>
+
+
+<input
+id="location"
+type="text"
+value="大理"
+placeholder="请输入城市">
+
+
+
+
+
+<label>
+性别
+</label>
+
 
 <select id="gender">
+
+
+<option value="female" selected>
+女
+</option>
+
 
 <option value="male">
 男
 </option>
 
-<option value="female">
-女
-</option>
 
 </select>
 
 
+
+
+
+<label>
+时间计算方式
+</label>
+
+
+<select id="timeMode">
+
+
+<option value="standard">
+
+北京时间
+
+</option>
+
+
+<option value="solar">
+
+真太阳时（开发中）
+
+</option>
+
+
+</select>
+
+
+
+
+
 <button onclick="analyze()">
+
 开始分析
+
 </button>
+
 
 
 </section>
 
 
 
-<div id="report"></div>
+
+
+
+
+<section id="report">
+
+
+</section>
+
+
+
+
+
 
 
 </div>
+
+
+
 
 
 
@@ -93,6 +190,9 @@ placeholder="例如：大理">
 <script src="js/app.js"></script>
 
 
+
+
 </body>
+
 
 </html>
