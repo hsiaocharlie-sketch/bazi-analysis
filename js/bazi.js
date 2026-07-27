@@ -1,64 +1,35 @@
 /*
-四柱命盘核心结构
+八字核心控制
 */
 
 
 const heavenlyStems = [
-
 "甲","乙","丙","丁","戊",
 "己","庚","辛","壬","癸"
-
 ];
 
 
 const earthlyBranches = [
-
 "子","丑","寅","卯","辰","巳",
 "午","未","申","酉","戌","亥"
-
 ];
-
-
-
-
-function createPillar(gan,zhi){
-
-
-return {
-
-
-gan:gan,
-
-
-zhi:zhi,
-
-
-hidden:
-hiddenStems[zhi] || []
-
-
-};
-
-
-}
-
 
 
 
 function calculateBazi(input){
 
 
-
 let date =
 new Date(
-input.date+"T"+input.time
+input.date+"T"+input.time+":00"
 );
 
 
 
 let year =
-calculateYearPillar(date);
-
+calculateYearPillar(
+date
+);
 
 
 let month =
@@ -68,12 +39,12 @@ year.gan
 );
 
 
-
 let day =
 calculateDayPillar(
-date
+date.getFullYear(),
+date.getMonth()+1,
+date.getDate()
 );
-
 
 
 let hour =
@@ -93,89 +64,20 @@ birth:input,
 pillars:{
 
 
-year:createPillar(
-year.gan,
-year.zhi
-),
+year:year,
 
+month:month,
 
-month:createPillar(
-month.gan,
-month.zhi
-),
+day:day,
 
-
-day:createPillar(
-day.gan,
-day.zhi
-),
-
-
-hour:createPillar(
-hour.gan,
-hour.zhi
-)
+hour:hour
 
 
 },
 
 
-
 dayMaster:day.gan
 
-
-};
-
-
-}
-
-
-
-
-/*
-年柱
-*/
-
-function calculateYearPillar(date){
-
-
-let year =
-date.getFullYear();
-
-
-let month =
-date.getMonth()+1;
-
-
-let day =
-date.getDate();
-
-
-
-if(
-month<2 ||
-(month===2 && day<4)
-){
-
-year--;
-
-}
-
-
-
-let gan =
-heavenlyStems[(year-4)%10];
-
-
-let zhi =
-earthlyBranches[(year-4)%12];
-
-
-
-return {
-
-gan,
-zhi
 
 };
 
