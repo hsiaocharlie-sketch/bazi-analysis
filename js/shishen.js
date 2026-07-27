@@ -66,7 +66,30 @@ function getTenGod(dayGan,targetGan){
 
 
 
-if(!targetGan){
+if(
+!dayGan ||
+!targetGan
+){
+
+return "";
+
+}
+
+
+
+let day =
+stemInfo[dayGan];
+
+
+let target =
+stemInfo[targetGan];
+
+
+
+if(
+!day ||
+!target
+){
 
 return "";
 
@@ -82,44 +105,20 @@ return "比肩";
 
 
 
-let day =
-stemInfo[dayGan];
-
-let target =
-stemInfo[targetGan];
-
-
-
 let same =
-day.yinYang===target.yinYang;
+day.yinYang === target.yinYang;
 
 
 
-/*
-五行关系
-
-我生：
-食伤
-
-我克：
-财
-
-克我：
-官杀
-
-生我：
-印
-
-*/
-
-
-let relation;
+let relation="";
 
 
 
-if(
-day.element==="木"
-){
+switch(day.element){
+
+
+case "木":
+
 
 if(target.element==="火")
 relation="食伤";
@@ -133,12 +132,14 @@ relation="官杀";
 if(target.element==="水")
 relation="印";
 
-}
+
+break;
 
 
-if(
-day.element==="火"
-){
+
+
+case "火":
+
 
 if(target.element==="土")
 relation="食伤";
@@ -152,13 +153,14 @@ relation="官杀";
 if(target.element==="木")
 relation="印";
 
-}
+
+break;
 
 
 
-if(
-day.element==="土"
-){
+
+case "土":
+
 
 if(target.element==="金")
 relation="食伤";
@@ -172,13 +174,14 @@ relation="官杀";
 if(target.element==="火")
 relation="印";
 
-}
+
+break;
 
 
 
-if(
-day.element==="金"
-){
+
+case "金":
+
 
 if(target.element==="水")
 relation="食伤";
@@ -192,13 +195,14 @@ relation="官杀";
 if(target.element==="土")
 relation="印";
 
-}
+
+break;
 
 
 
-if(
-day.element==="水"
-){
+
+case "水":
+
 
 if(target.element==="木")
 relation="食伤";
@@ -212,9 +216,11 @@ relation="官杀";
 if(target.element==="金")
 relation="印";
 
+
+break;
+
+
 }
-
-
 
 
 
@@ -233,6 +239,7 @@ return same ? "食神":"伤官";
 }
 
 
+
 if(relation==="财"){
 
 return same ? "偏财":"正财";
@@ -240,11 +247,13 @@ return same ? "偏财":"正财";
 }
 
 
+
 if(relation==="官杀"){
 
 return same ? "七杀":"正官";
 
 }
+
 
 
 if(relation==="印"){
@@ -255,8 +264,7 @@ return same ? "偏印":"正印";
 
 
 
-return relation;
-
+return "";
 
 }
 
@@ -282,6 +290,14 @@ bazi.pillars
 pillar=>{
 
 
+pillar.tenGod =
+getTenGod(
+dayGan,
+pillar.gan
+);
+
+
+
 if(
 pillar.gan===dayGan
 ){
@@ -290,17 +306,6 @@ pillar.tenGod="日主";
 
 }
 
-else{
-
-
-pillar.tenGod =
-getTenGod(
-dayGan,
-pillar.gan
-);
-
-
-}
 
 
 
@@ -325,13 +330,16 @@ item.gan;
 
 return {
 
+
 gan:gan,
+
 
 tenGod:
 getTenGod(
 dayGan,
 gan
 )
+
 
 };
 
