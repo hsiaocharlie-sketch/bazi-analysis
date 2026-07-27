@@ -24,11 +24,9 @@ year--;
 }
 
 
-
 let ganIndex=(year-4)%10;
 
 let zhiIndex=(year-4)%12;
-
 
 
 if(ganIndex<0)
@@ -48,9 +46,7 @@ zhi:earthlyBranches[zhiIndex]
 
 };
 
-
 }
-
 
 
 
@@ -59,9 +55,7 @@ zhi:earthlyBranches[zhiIndex]
 function calculateHour(hour, dayGan){
 
 
-
 let branchIndex;
-
 
 
 if(hour>=23 || hour<1)
@@ -114,17 +108,6 @@ branchIndex=11;
 
 
 
-/*
-五鼠遁
-
-甲己日：甲子起
-乙庚日：丙子起
-丙辛日：戊子起
-丁壬日：庚子起
-戊癸日：壬子起
-*/
-
-
 const startStem={
 
 "甲":0,
@@ -146,12 +129,22 @@ const startStem={
 
 
 
-let stemIndex =
-(
-startStem[dayGan]
-+
-branchIndex
-)%10;
+let start =
+startStem[dayGan];
+
+
+
+if(start===undefined){
+
+return {
+
+gan:"待计算",
+
+zhi:earthlyBranches[branchIndex]
+
+};
+
+}
 
 
 
@@ -159,7 +152,9 @@ return {
 
 
 gan:
-heavenlyStems[stemIndex],
+heavenlyStems[
+(start+branchIndex)%10
+],
 
 
 zhi:
@@ -177,9 +172,7 @@ earthlyBranches[branchIndex]
 
 
 
-
 function calculateBazi(input){
-
 
 
 let date =
@@ -230,18 +223,13 @@ solarMonth
 
 
 
-/*
-日柱暂时保留接口
-下一步替换为儒略日算法
-*/
+let dayPillar =
+calculateDayPillar(
+year,
+month,
+day
+);
 
-let dayPillar={
-
-gan:"待计算",
-
-zhi:"待计算"
-
-};
 
 
 
