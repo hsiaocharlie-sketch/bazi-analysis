@@ -1,5 +1,5 @@
 /*
-八字报告显示
+八字报告显示模块
 */
 
 
@@ -9,16 +9,16 @@ function createReport(bazi,result){
 let html="";
 
 
-html+=createPillarCard(bazi);
+html += createPillarCard(bazi);
 
 
-html+=createDayMasterCard(result);
+html += createDayMasterCard(result);
 
 
-html+=createWuxingCard(result.wuxing);
+html += createWuxingCard(result.wuxing);
 
 
-html+=createStrengthCard(result.strength);
+html += createStrengthCard(result.strength);
 
 
 
@@ -37,6 +37,32 @@ function createPillarCard(bazi){
 
 
 
+let pillars=[
+
+{
+name:"年柱",
+data:bazi.pillars.year
+},
+
+{
+name:"月柱",
+data:bazi.pillars.month
+},
+
+{
+name:"日柱",
+data:bazi.pillars.day
+},
+
+{
+name:"时柱",
+data:bazi.pillars.hour
+}
+
+];
+
+
+
 let html=`
 
 <section class="card">
@@ -52,36 +78,69 @@ let html=`
 
 
 
-Object.entries(
-bazi.pillars
+
+pillars.forEach(item=>{
+
+
+let p=item.data;
+
+
+
+let hidden="";
+
+
+
+if(p.hidden){
+
+
+hidden=p.hidden
+.map(
+x=>x.gan
 )
-.forEach(
-([name,pillar])=>{
+.join(" ");
+
+
+}
+
+
+
+
+let tenGod="";
+
+
+if(p.tenGod){
+
+tenGod=p.tenGod;
+
+}
+
+
 
 
 html+=`
-
 
 <div class="pillar">
 
 
 <h3>
-${name}
+${item.name}
 </h3>
+
 
 
 <div class="pillar-main">
 
-${pillar.gan}${pillar.zhi}
+${p.gan}${p.zhi}
 
 </div>
 
 
+
 <div>
 
-天干：
+十神：
 
-${pillar.tenGod || ""}
+${tenGod}
 
 </div>
 
@@ -91,31 +150,9 @@ ${pillar.tenGod || ""}
 
 藏干：
 
-</div>
-
-
-${
-
-pillar.hiddenTenGod
-.map(
-x=>`
-
-<div>
-
-${x.gan}
-
-&nbsp;
-
-${x.tenGod}
+${hidden}
 
 </div>
-
-`
-)
-.join("")
-
-}
-
 
 
 </div>
@@ -124,7 +161,9 @@ ${x.tenGod}
 `;
 
 
+
 });
+
 
 
 
@@ -142,7 +181,6 @@ return html;
 
 
 }
-
 
 
 
@@ -191,30 +229,54 @@ ${result.dayMaster.element}
 function createWuxingCard(wuxing){
 
 
+
+if(!wuxing){
+
+return "";
+
+}
+
+
+
 return `
 
 
 <section class="card">
+
 
 <h2>
 五行力量
 </h2>
 
 
+<p>
 木：
-${wuxing["木"]}%<br>
+${wuxing["木"]}%
+</p>
 
+
+<p>
 火：
-${wuxing["火"]}%<br>
+${wuxing["火"]}%
+</p>
 
+
+<p>
 土：
-${wuxing["土"]}%<br>
+${wuxing["土"]}%
+</p>
 
+
+<p>
 金：
-${wuxing["金"]}%<br>
+${wuxing["金"]}%
+</p>
 
+
+<p>
 水：
 ${wuxing["水"]}%
+</p>
 
 
 </section>
@@ -230,7 +292,16 @@ ${wuxing["水"]}%
 
 
 
+
 function createStrengthCard(strength){
+
+
+
+if(!strength){
+
+return "";
+
+}
 
 
 
@@ -238,6 +309,7 @@ return `
 
 
 <section class="card">
+
 
 <h2>
 旺衰判断
@@ -254,16 +326,19 @@ ${strength.level}
 <p>
 
 评分：
-${strength.score}
+${strength.score}/100
 
 </p>
 
 
-<p>
 
-${strength.reasons.join("<br>")}
+<div>
 
-</p>
+${
+strength.reasons.join("<br>")
+}
+
+</div>
 
 
 </section>
