@@ -18,7 +18,19 @@ html+=createDayMasterCard(result);
 
 if(result.structure){
 
-html+=createStructureCard(result.structure);
+html+=createStructureCard(
+result.structure
+);
+
+}
+
+
+
+if(result.useGod){
+
+html+=createUseGodCard(
+result.useGod
+);
 
 }
 
@@ -26,7 +38,9 @@ html+=createStructureCard(result.structure);
 
 if(result.wuxing){
 
-html+=createWuxingCard(result.wuxing);
+html+=createWuxingCard(
+result.wuxing
+);
 
 }
 
@@ -34,7 +48,9 @@ html+=createWuxingCard(result.wuxing);
 
 if(result.strength){
 
-html+=createStrengthCard(result.strength);
+html+=createStrengthCard(
+result.strength
+);
 
 }
 
@@ -51,181 +67,70 @@ return html;
 
 
 
-function createPillarCard(bazi){
-
-
-let pillars=[
-
-["年柱",bazi.pillars.year],
-
-["月柱",bazi.pillars.month],
-
-["日柱",bazi.pillars.day],
-
-["时柱",bazi.pillars.hour]
-
-];
-
-
-
-let html=`
-
-<section class="report-card">
-
-<h2>
-四柱命盘
-</h2>
-
-
-<div class="pillar-container">
-
-`;
-
-
-
-pillars.forEach(p=>{
-
-
-let name=p[0];
-
-let data=p[1];
-
-
-
-let hidden="";
-
-
-
-if(data.hidden){
-
-
-hidden=data.hidden.map(
-x=>
-
-`
-
-<div class="hidden-item">
-
-${x.gan}
-&nbsp;
-${x.tenGod}
-
-</div>
-
-`
-
-).join("");
-
-
-
-}
-
-
-
-html+=`
-
-
-<div class="pillar-column">
-
-
-<div class="pillar-name">
-
-${name}
-
-</div>
-
-
-
-<div class="ten-god-top">
-
-${data.tenGod}
-
-</div>
-
-
-
-<div class="pillar-gan">
-
-${data.gan}
-
-</div>
-
-
-
-<div class="pillar-zhi">
-
-${data.zhi}
-
-</div>
-
-
-
-<div class="hidden-title">
-
-藏干
-
-</div>
-
-
-<div class="hidden-text">
-
-${hidden}
-
-</div>
-
-
-</div>
-
-
-`;
-
-
-});
-
-
-
-html+=`
-
-</div>
-
-</section>
-
-`;
-
-
-
-return html;
-
-
-}
-
-
-
-
-
-
-function createDayMasterCard(result){
+function createUseGodCard(data){
 
 
 return `
 
+
 <section class="report-card">
 
+
 <h2>
-日主
+用神喜忌
 </h2>
 
-<div class="daymaster">
 
-${result.dayMaster.stem}
+<h3>
+${data.type}
+</h3>
 
-<span>
-${result.dayMaster.element}
-</span>
 
-</div>
+<p>
+
+<b>
+用神：
+</b>
+
+${data.useGod.join("、")}
+
+</p>
+
+
+
+<p>
+
+<b>
+喜神：
+</b>
+
+${data.happyGod.join("、")}
+
+</p>
+
+
+
+<p>
+
+<b>
+忌神：
+</b>
+
+${data.avoidGod.join("、")}
+
+</p>
+
+
+
+<p>
+
+${data.description}
+
+</p>
+
 
 </section>
+
 
 `;
 
