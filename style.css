@@ -1,8 +1,6 @@
 body{
 
 font-family:
--apple-system,
-BlinkMacSystemFont,
 "PingFang SC",
 "Microsoft YaHei",
 sans-serif;
@@ -18,7 +16,6 @@ color:#333;
 }
 
 
-
 .container{
 
 max-width:700px;
@@ -26,29 +23,6 @@ max-width:700px;
 margin:auto;
 
 }
-
-
-
-
-header{
-
-text-align:center;
-
-margin-bottom:25px;
-
-}
-
-
-
-header h1{
-
-font-size:28px;
-
-margin-bottom:8px;
-
-}
-
-
 
 
 
@@ -70,59 +44,95 @@ box-shadow:
 
 
 
-label{
+.pillar-container{
 
-display:block;
+display:grid;
 
-margin-top:12px;
+grid-template-columns:
+repeat(4,1fr);
 
-margin-bottom:5px;
-
-}
-
-
-
-input,
-select{
-
-width:100%;
-
-padding:10px;
-
-border-radius:8px;
-
-border:1px solid #ddd;
-
-font-size:16px;
-
-box-sizing:border-box;
-
-}
-
-
-
-
-
-button{
-
-width:100%;
+gap:8px;
 
 margin-top:20px;
 
-padding:13px;
+}
 
-border:none;
 
-border-radius:10px;
 
-background:#333;
+.pillar-column{
 
-color:white;
+text-align:center;
 
-font-size:17px;
+border-right:1px solid #eee;
 
 }
 
+
+
+.pillar-name{
+
+font-size:14px;
+
+color:#777;
+
+margin-bottom:8px;
+
+}
+
+
+
+.ten-god-top{
+
+font-size:12px;
+
+height:20px;
+
+color:#888;
+
+}
+
+
+
+.pillar-gan,
+.pillar-zhi{
+
+font-size:38px;
+
+font-weight:bold;
+
+line-height:55px;
+
+}
+
+
+
+.pillar-zhi{
+
+margin-top:5px;
+
+}
+
+
+
+.hidden-title{
+
+font-size:12px;
+
+color:#999;
+
+margin-top:10px;
+
+}
+
+
+
+.hidden-text{
+
+font-size:14px;
+
+line-height:22px;
+
+}
 
 
 
@@ -133,179 +143,5 @@ font-size:20px;
 border-bottom:1px solid #eee;
 
 padding-bottom:10px;
-
-}
-
-
-
-
-
-.bazi-table{
-
-margin-top:15px;
-
-}
-
-
-
-
-.row{
-
-display:grid;
-
-grid-template-columns:
-70px
-1fr
-1fr;
-
-border-bottom:1px solid #eee;
-
-padding:12px 0;
-
-align-items:center;
-
-}
-
-
-
-
-
-.title-row{
-
-font-size:14px;
-
-color:#777;
-
-}
-
-
-
-.pillar-name{
-
-font-weight:bold;
-
-}
-
-
-
-.gan,
-.zhi{
-
-font-size:30px;
-
-font-weight:bold;
-
-text-align:center;
-
-}
-
-
-
-.god{
-
-font-size:13px;
-
-color:#888;
-
-text-align:center;
-
-}
-
-
-
-.hidden{
-
-font-size:13px;
-
-color:#666;
-
-margin-top:6px;
-
-}
-
-
-
-
-.daymaster{
-
-font-size:32px;
-
-font-weight:bold;
-
-}
-
-
-
-.daymaster span{
-
-font-size:20px;
-
-margin-left:10px;
-
-color:#777;
-
-}
-
-
-
-
-
-.five-row{
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
-
-margin:12px 0;
-
-}
-
-
-
-.five-name{
-
-width:30px;
-
-}
-
-
-
-.bar-box{
-
-flex:1;
-
-height:12px;
-
-background:#eee;
-
-border-radius:10px;
-
-overflow:hidden;
-
-}
-
-
-
-.bar{
-
-height:100%;
-
-background:#555;
-
-}
-
-
-
-
-
-.strength-title{
-
-font-size:24px;
-
-font-weight:bold;
-
-margin-bottom:10px;
 
 }
