@@ -1,106 +1,96 @@
 /*
-八字核心控制
+八字组合模块
 */
-
-
-const heavenlyStems = [
-"甲","乙","丙","丁","戊",
-"己","庚","辛","壬","癸"
-];
-
-
-const earthlyBranches = [
-"子","丑","寅","卯","辰","巳",
-"午","未","申","酉","戌","亥"
-];
-
-
-
-function createPillar(data){
-
-
-return {
-
-gan:data.gan,
-
-zhi:data.zhi,
-
-hidden:
-hiddenStems[data.zhi] || []
-
-};
-
-
-}
-
-
 
 
 function calculateBazi(input){
 
 
-let date =
-new Date(
-input.date+"T"+input.time+":00"
-);
-
-
 
 let year =
-calculateYearPillar(date);
+calculateYearPillar(
+input.year,
+input.month,
+input.day
+);
 
 
 
 let month =
 calculateMonthPillar(
-date,
-year.gan
+input.year,
+input.month,
+input.day
 );
 
 
 
 let day =
 calculateDayPillar(
-date.getFullYear(),
-date.getMonth()+1,
-date.getDate()
+input.year,
+input.month,
+input.day
 );
 
 
 
 let hour =
 calculateHourPillar(
-date.getHours(),
-day.gan
+day.gan,
+input.hour
 );
+
+
+
+
+let pillars={
+
+
+year:year,
+
+
+month:month,
+
+
+day:day,
+
+
+hour:hour
+
+
+};
+
+
+
+Object.values(pillars)
+.forEach(
+pillar=>{
+
+
+pillar.hidden =
+getHiddenStems(
+pillar.zhi
+);
+
+
+}
+);
+
 
 
 
 return {
 
 
-birth:input,
+pillars:pillars,
 
 
-pillars:{
-
-
-year:createPillar(year),
-
-month:createPillar(month),
-
-day:createPillar(day),
-
-hour:createPillar(hour)
-
-
-},
-
-
-dayMaster:day.gan
+dayMaster:
+day.gan
 
 
 };
+
 
 
 }
