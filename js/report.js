@@ -12,16 +12,13 @@ function createReport(bazi,result){
     html += createPillarCard(bazi);
 
 
-
     html += createDayMasterCard(result);
 
 
 
     if(result.structure){
 
-        html += createStructureCard(
-            result.structure
-        );
+        html += createStructureCard(result.structure);
 
     }
 
@@ -29,9 +26,7 @@ function createReport(bazi,result){
 
     if(result.wuxing){
 
-        html += createWuxingCard(
-            result.wuxing
-        );
+        html += createWuxingCard(result.wuxing);
 
     }
 
@@ -39,15 +34,14 @@ function createReport(bazi,result){
 
     if(result.strength){
 
-        html += createStrengthCard(
-            result.strength
-        );
+        html += createStrengthCard(result.strength);
 
     }
 
 
 
     return html;
+
 
 }
 
@@ -103,24 +97,8 @@ function createPillarCard(bazi){
 </h2>
 
 
-<div class="bazi-table">
 
-
-<div class="row title-row">
-
-<div></div>
-
-<div>
-天干
-</div>
-
-<div>
-地支
-</div>
-
-
-</div>
-
+<div class="pillar-container">
 
 `;
 
@@ -140,9 +118,20 @@ function createPillarCard(bazi){
         if(data.hidden){
 
 
-            hidden=data.hidden
+            hidden =
+            data.hidden
             .map(
-                x=>x.gan || x
+                x=>{
+
+                    if(typeof x==="object"){
+
+                        return x.gan;
+
+                    }
+
+                    return x;
+
+                }
             )
             .join(" ");
 
@@ -151,10 +140,12 @@ function createPillarCard(bazi){
 
 
 
-        html += `
 
 
-<div class="row">
+        html+=`
+
+
+<div class="pillar-column">
 
 
 <div class="pillar-name">
@@ -165,25 +156,24 @@ ${p.name}
 
 
 
-<div class="pillar-cell">
+<div class="ten-god-top">
+
+${data.tenGod || ""}
+
+</div>
 
 
-<div class="gan">
+
+<div class="pillar-gan">
 
 ${data.gan || ""}
 
 </div>
 
 
-</div>
 
 
-
-
-<div class="pillar-cell">
-
-
-<div class="zhi">
+<div class="pillar-zhi">
 
 ${data.zhi || ""}
 
@@ -191,15 +181,21 @@ ${data.zhi || ""}
 
 
 
-<div class="hidden">
 
-藏干：
+<div class="hidden-title">
+
+藏干
+
+</div>
+
+
+
+<div class="hidden-text">
+
 ${hidden}
 
 </div>
 
-
-</div>
 
 
 </div>
@@ -213,11 +209,13 @@ ${hidden}
 
 
 
-    html += `
+    html+=`
 
 </div>
 
+
 </section>
+
 
 `;
 
@@ -227,6 +225,7 @@ ${hidden}
 
 
 }
+
 
 
 
@@ -271,7 +270,6 @@ ${result.dayMaster.element}
 `;
 
 }
-
 
 
 
@@ -328,12 +326,10 @@ ${structure.description}
 
 
 
-
 function createWuxingCard(wuxing){
 
 
-
-let html=`
+return `
 
 
 <section class="report-card">
@@ -344,55 +340,40 @@ let html=`
 </h2>
 
 
-`;
+<p>
+木：
+${wuxing["木"] || 0}%
+</p>
 
 
-
-["木","火","土","金","水"].forEach(item=>{
-
-
-html+=`
-
-
-<div class="five-row">
+<p>
+火：
+${wuxing["火"] || 0}%
+</p>
 
 
-<div class="five-name">
-
-${item}
-
-</div>
-
+<p>
+土：
+${wuxing["土"] || 0}%
+</p>
 
 
-<div>
-
-${wuxing[item] || 0}%
-
-</div>
-
+<p>
+金：
+${wuxing["金"] || 0}%
+</p>
 
 
-</div>
+<p>
+水：
+${wuxing["水"] || 0}%
+</p>
 
-
-`;
-
-
-});
-
-
-
-html+=`
 
 </section>
 
+
 `;
-
-
-
-return html;
-
 
 }
 
@@ -402,9 +383,7 @@ return html;
 
 
 
-
 function createStrengthCard(strength){
-
 
 
 return `
@@ -429,19 +408,6 @@ ${strength.level}
 
 评分：
 ${strength.score}
-
-</p>
-
-
-<p>
-
-${
-strength.reasons
-?
-strength.reasons.join("<br>")
-:
-""
-}
 
 </p>
 
