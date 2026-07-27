@@ -1,19 +1,17 @@
-*{
-
-box-sizing:border-box;
-
-}
-
-
 body{
+
+font-family:
+-apple-system,
+BlinkMacSystemFont,
+"PingFang SC",
+"Microsoft YaHei",
+sans-serif;
+
+background:#f5f3ef;
 
 margin:0;
 
-background:#f3eee4;
-
-font-family:
-"Microsoft YaHei",
-sans-serif;
+padding:20px;
 
 color:#333;
 
@@ -23,13 +21,12 @@ color:#333;
 
 .container{
 
-max-width:900px;
+max-width:700px;
 
 margin:auto;
 
-padding:30px;
-
 }
+
 
 
 
@@ -37,35 +34,37 @@ header{
 
 text-align:center;
 
-color:#5c3a20;
-
-margin-bottom:30px;
+margin-bottom:25px;
 
 }
+
+
+
+header h1{
+
+font-size:28px;
+
+margin-bottom:8px;
+
+}
+
+
 
 
 
 .input-card,
-.card{
+.report-card{
 
 background:white;
 
-padding:25px;
+border-radius:16px;
+
+padding:20px;
 
 margin-bottom:20px;
 
-border-radius:16px;
-
 box-shadow:
-0 4px 15px rgba(0,0,0,.08);
-
-}
-
-
-
-h2{
-
-color:#684321;
+0 3px 12px rgba(0,0,0,0.08);
 
 }
 
@@ -75,155 +74,238 @@ label{
 
 display:block;
 
-margin-top:15px;
+margin-top:12px;
+
+margin-bottom:5px;
 
 }
 
 
 
 input,
-select,
-button{
+select{
 
 width:100%;
 
-padding:12px;
-
-margin-top:8px;
-
-font-size:16px;
+padding:10px;
 
 border-radius:8px;
 
 border:1px solid #ddd;
 
+font-size:16px;
+
+box-sizing:border-box;
+
 }
+
+
 
 
 
 button{
 
-background:#76502c;
+width:100%;
 
-color:white;
+margin-top:20px;
+
+padding:13px;
 
 border:none;
 
-cursor:pointer;
+border-radius:10px;
+
+background:#333;
+
+color:white;
+
+font-size:17px;
 
 }
 
 
 
-.pillars{
+
+h2{
+
+font-size:20px;
+
+border-bottom:1px solid #eee;
+
+padding-bottom:10px;
+
+}
+
+
+
+
+
+.bazi-table{
+
+margin-top:15px;
+
+}
+
+
+
+
+.row{
 
 display:grid;
 
 grid-template-columns:
-repeat(4,1fr);
+70px
+1fr
+1fr;
 
-gap:10px;
+border-bottom:1px solid #eee;
+
+padding:12px 0;
+
+align-items:center;
 
 }
 
 
 
-.pillar{
 
-background:#faf5eb;
 
-padding:15px;
+.title-row{
+
+font-size:14px;
+
+color:#777;
+
+}
+
+
+
+.pillar-name{
+
+font-weight:bold;
+
+}
+
+
+
+.gan,
+.zhi{
+
+font-size:30px;
+
+font-weight:bold;
 
 text-align:center;
 
-border-radius:10px;
+}
+
+
+
+.god{
+
+font-size:13px;
+
+color:#888;
+
+text-align:center;
+
+}
+
+
+
+.hidden{
+
+font-size:13px;
+
+color:#666;
+
+margin-top:6px;
+
+}
+
+
+
+
+.daymaster{
+
+font-size:32px;
+
+font-weight:bold;
+
+}
+
+
+
+.daymaster span{
 
 font-size:20px;
 
-}
+margin-left:10px;
 
-
-
-.wuxing-bar{
-
-height:22px;
-
-border-radius:12px;
-
-margin:8px 0;
+color:#777;
 
 }
 
 
 
-.wood{
-
-background:#6b9d55;
-
-}
 
 
-.fire{
+.five-row{
 
-background:#d45b42;
+display:flex;
 
-}
+align-items:center;
 
+gap:10px;
 
-.earth{
-
-background:#b99a55;
-
-}
-
-
-.metal{
-
-background:#999;
-
-}
-
-
-.water{
-
-background:#4b88b8;
+margin:12px 0;
 
 }
 
 
 
-.reason{
+.five-name{
 
-background:#faf7ef;
+width:30px;
 
-padding:15px;
+}
+
+
+
+.bar-box{
+
+flex:1;
+
+height:12px;
+
+background:#eee;
 
 border-radius:10px;
 
-margin-top:10px;
+overflow:hidden;
 
 }
 
 
 
-.good{
+.bar{
 
-background:#e7f2e7;
+height:100%;
 
-padding:15px;
-
-border-radius:10px;
+background:#555;
 
 }
 
 
 
-.warning{
 
-background:#f7e4e4;
 
-padding:15px;
+.strength-title{
 
-border-radius:10px;
+font-size:24px;
+
+font-weight:bold;
+
+margin-bottom:10px;
 
 }
