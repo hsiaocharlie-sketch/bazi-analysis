@@ -1,13 +1,11 @@
 /*
 月柱计算模块
 
-采用子平八字：
-以节气定月
+子平八字：
+月支以节气定
 
-当前测试：
-1984-01-10
-年柱：癸亥
-月柱：乙丑
+五虎遁：
+年干决定寅月月干
 */
 
 
@@ -19,18 +17,18 @@ function calculateMonthPillar(date, yearGan){
 
 
 
-    /*
-    以节气粗略判断月令
-
-    1984年1月10日：
-    小寒后
-    属丑月
-
-    */
-
-
     let monthBranch;
 
+
+
+    /*
+    当前采用节气月粗分
+
+    1984-01-10：
+    小寒后
+    为丑月
+
+    */
 
 
     if(
@@ -41,7 +39,6 @@ function calculateMonthPillar(date, yearGan){
         monthBranch = "丑";
 
     }
-
     else if(
         month === 2 ||
         month === 3
@@ -50,71 +47,46 @@ function calculateMonthPillar(date, yearGan){
         monthBranch = "寅";
 
     }
-
-    else if(
-        month === 4
-    ){
+    else if(month === 4){
 
         monthBranch = "卯";
 
     }
-
-    else if(
-        month === 5
-    ){
+    else if(month === 5){
 
         monthBranch = "辰";
 
     }
-
-    else if(
-        month === 6
-    ){
+    else if(month === 6){
 
         monthBranch = "巳";
 
     }
-
-    else if(
-        month === 7
-    ){
+    else if(month === 7){
 
         monthBranch = "午";
 
     }
-
-    else if(
-        month === 8
-    ){
+    else if(month === 8){
 
         monthBranch = "未";
 
     }
-
-    else if(
-        month === 9
-    ){
+    else if(month === 9){
 
         monthBranch = "申";
 
     }
-
-    else if(
-        month === 10
-    ){
+    else if(month === 10){
 
         monthBranch = "酉";
 
     }
-
-    else if(
-        month === 11
-    ){
+    else if(month === 11){
 
         monthBranch = "戌";
 
     }
-
     else{
 
         monthBranch = "亥";
@@ -123,19 +95,20 @@ function calculateMonthPillar(date, yearGan){
 
 
 
+
     /*
     五虎遁
 
-    甲己年 丙寅月
-    乙庚年 戊寅月
-    丙辛年 庚寅月
-    丁壬年 壬寅月
-    戊癸年 甲寅月
+    甲己年：丙寅
+    乙庚年：戊寅
+    丙辛年：庚寅
+    丁壬年：壬寅
+    戊癸年：甲寅
 
     */
 
 
-    let startGan;
+    let yinMonthGan;
 
 
 
@@ -144,47 +117,83 @@ function calculateMonthPillar(date, yearGan){
         yearGan === "己"
     ){
 
-        startGan = 2;
+        yinMonthGan = "丙";
 
     }
-
     else if(
         yearGan === "乙" ||
         yearGan === "庚"
     ){
 
-        startGan = 4;
+        yinMonthGan = "戊";
 
     }
-
     else if(
         yearGan === "丙" ||
         yearGan === "辛"
     ){
 
-        startGan = 6;
+        yinMonthGan = "庚";
 
     }
-
     else if(
         yearGan === "丁" ||
         yearGan === "壬"
     ){
 
-        startGan = 8;
+        yinMonthGan = "壬";
 
     }
-
     else{
 
-        startGan = 0;
+        yinMonthGan = "甲";
 
     }
+
+
+
+
+    const stemOrder = [
+        "甲",
+        "乙",
+        "丙",
+        "丁",
+        "戊",
+        "己",
+        "庚",
+        "辛",
+        "壬",
+        "癸"
+    ];
+
+
+
+    const branchOrder = [
+        "子",
+        "丑",
+        "寅",
+        "卯",
+        "辰",
+        "巳",
+        "午",
+        "未",
+        "申",
+        "酉",
+        "戌",
+        "亥"
+    ];
+
+
+
+    let start =
+    stemOrder.indexOf(
+        yinMonthGan
+    );
 
 
 
     let branchIndex =
-    earthlyBranches.indexOf(
+    branchOrder.indexOf(
         monthBranch
     );
 
@@ -207,8 +216,8 @@ function calculateMonthPillar(date, yearGan){
 
 
         gan:
-        heavenlyStems[
-            (startGan + offset) % 10
+        stemOrder[
+            (start + offset) % 10
         ],
 
 
