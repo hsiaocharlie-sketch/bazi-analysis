@@ -4,6 +4,7 @@ function createReport(bazi,result){
 let html="";
 
 
+
 html+=`
 
 <section class="card">
@@ -45,8 +46,64 @@ ${bazi.pillars.hour.gan}${bazi.pillars.hour.zhi}
 
 </section>
 
+`;
+
+
+
+
+html+=`
+
+<section class="card">
+
+<h2>
+日主分析
+</h2>
+
+
+<h3>
+
+${result.dayMaster.stem}
+${result.dayMaster.element}
+
+</h3>
+
+
+<p>
+
+状态：
+
+${result.strength.level}
+
+</p>
+
+
+<p>
+
+评分：
+
+${result.strength.score}
+
+</p>
+
+
+<div class="reason">
+
+
+${
+result.strength.reasons
+.map(x=>"• "+x+"<br>")
+.join("")
+}
+
+
+</div>
+
+
+</section>
+
 
 `;
+
 
 
 
@@ -71,52 +128,6 @@ ${bar("水",result.wuxing.water,"water")}
 
 
 </section>
-
-
-`;
-
-
-
-html+=`
-
-<section class="card">
-
-
-<h2>
-日主分析
-</h2>
-
-
-<h3>
-${bazi.dayMaster}木
-</h3>
-
-
-<p>
-状态：
-${result.strength.level}
-</p>
-
-
-<p>
-评分：
-${result.strength.score}
-</p>
-
-
-<div class="reason">
-
-
-${result.strength.reasons
-.map(x=>"• "+x+"<br>")
-.join("")}
-
-
-</div>
-
-
-</section>
-
 
 `;
 
@@ -157,7 +168,6 @@ ${result.useGod.avoid}
 
 </section>
 
-
 `;
 
 
@@ -166,6 +176,7 @@ return html;
 
 
 }
+
 
 
 
