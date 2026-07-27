@@ -1,5 +1,5 @@
 /*
-报告生成
+八字报告显示
 */
 
 
@@ -36,8 +36,8 @@ return html;
 function createPillarCard(bazi){
 
 
-let html=`
 
+let html=`
 
 <section class="card">
 
@@ -48,68 +48,25 @@ let html=`
 
 <div class="pillars">
 
-
-${createSinglePillar(
-"年柱",
-bazi.pillars.year
-)}
-
-
-${createSinglePillar(
-"月柱",
-bazi.pillars.month
-)}
-
-
-${createSinglePillar(
-"日柱",
-bazi.pillars.day
-)}
-
-
-${createSinglePillar(
-"时柱",
-bazi.pillars.hour
-)}
-
-
-</div>
-
-
-</section>
-
-
 `;
 
-return html;
-
-}
 
 
-
-
-
-
-
-function createSinglePillar(title,pillar){
-
-
-let hidden =
-pillar.hidden
-.map(
-x=>x.gan
+Object.entries(
+bazi.pillars
 )
-.join(" ");
+.forEach(
+([name,pillar])=>{
 
 
-
-return `
+html+=`
 
 
 <div class="pillar">
 
+
 <h3>
-${title}
+${name}
 </h3>
 
 
@@ -122,17 +79,67 @@ ${pillar.gan}${pillar.zhi}
 
 <div>
 
-藏干：
+天干：
 
-${hidden}
+${pillar.tenGod || ""}
 
 </div>
+
+
+
+<div>
+
+藏干：
+
+</div>
+
+
+${
+
+pillar.hiddenTenGod
+.map(
+x=>`
+
+<div>
+
+${x.gan}
+
+&nbsp;
+
+${x.tenGod}
+
+</div>
+
+`
+)
+.join("")
+
+}
+
 
 
 </div>
 
 
 `;
+
+
+});
+
+
+
+html+=`
+
+</div>
+
+</section>
+
+`;
+
+
+
+return html;
+
 
 }
 
@@ -143,7 +150,9 @@ ${hidden}
 
 
 
+
 function createDayMasterCard(result){
+
 
 
 return `
@@ -159,6 +168,7 @@ return `
 <h3>
 
 ${result.dayMaster.stem}
+
 ${result.dayMaster.element}
 
 </h3>
@@ -181,46 +191,30 @@ ${result.dayMaster.element}
 function createWuxingCard(wuxing){
 
 
-
 return `
 
 
 <section class="card">
-
 
 <h2>
 五行力量
 </h2>
 
 
-${createBar(
-"木",
-wuxing["木"]
-)}
+木：
+${wuxing["木"]}%<br>
 
+火：
+${wuxing["火"]}%<br>
 
-${createBar(
-"火",
-wuxing["火"]
-)}
+土：
+${wuxing["土"]}%<br>
 
+金：
+${wuxing["金"]}%<br>
 
-${createBar(
-"土",
-wuxing["土"]
-)}
-
-
-${createBar(
-"金",
-wuxing["金"]
-)}
-
-
-${createBar(
-"水",
-wuxing["水"]
-)}
+水：
+${wuxing["水"]}%
 
 
 </section>
@@ -236,54 +230,7 @@ wuxing["水"]
 
 
 
-
-function createBar(name,value){
-
-
-return `
-
-
-<div>
-
-${name}
-
-<div class="wuxing-bar"
-
-style="width:${value}%">
-
-</div>
-
-
-${value}%
-
-
-</div>
-
-
-`;
-
-}
-
-
-
-
-
-
-
-
 function createStrengthCard(strength){
-
-
-let text="";
-
-
-strength.reasons.forEach(
-x=>{
-
-text+="• "+x+"<br>";
-
-}
-);
 
 
 
@@ -298,23 +245,25 @@ return `
 
 
 <h3>
+
 ${strength.level}
+
 </h3>
 
 
 <p>
 
 评分：
-${strength.score}/100
+${strength.score}
 
 </p>
 
 
-<div class="reason">
+<p>
 
-${text}
+${strength.reasons.join("<br>")}
 
-</div>
+</p>
 
 
 </section>
