@@ -14,7 +14,6 @@ const earthlyBranches = [
 function calculateYear(year,month,day){
 
 
-
 if(
 month<2 ||
 (month===2 && day<4)
@@ -43,14 +42,9 @@ zhiIndex+=12;
 
 return {
 
+gan:heavenlyStems[ganIndex],
 
-gan:
-heavenlyStems[ganIndex],
-
-
-zhi:
-earthlyBranches[zhiIndex]
-
+zhi:earthlyBranches[zhiIndex]
 
 };
 
@@ -62,74 +56,122 @@ earthlyBranches[zhiIndex]
 
 
 
-function calculateHour(hour){
+function calculateHour(hour, dayGan){
 
 
 
-let branch;
+let branchIndex;
 
 
 
 if(hour>=23 || hour<1)
 
-branch="子";
+branchIndex=0;
 
 else if(hour<3)
 
-branch="丑";
+branchIndex=1;
 
 else if(hour<5)
 
-branch="寅";
+branchIndex=2;
 
 else if(hour<7)
 
-branch="卯";
+branchIndex=3;
 
 else if(hour<9)
 
-branch="辰";
+branchIndex=4;
 
 else if(hour<11)
 
-branch="巳";
+branchIndex=5;
 
 else if(hour<13)
 
-branch="午";
+branchIndex=6;
 
 else if(hour<15)
 
-branch="未";
+branchIndex=7;
 
 else if(hour<17)
 
-branch="申";
+branchIndex=8;
 
 else if(hour<19)
 
-branch="酉";
+branchIndex=9;
 
 else if(hour<21)
 
-branch="戌";
+branchIndex=10;
 
 else
 
-branch="亥";
+branchIndex=11;
+
+
+
+/*
+五鼠遁
+
+甲己日：甲子起
+乙庚日：丙子起
+丙辛日：戊子起
+丁壬日：庚子起
+戊癸日：壬子起
+*/
+
+
+const startStem={
+
+"甲":0,
+"己":0,
+
+"乙":2,
+"庚":2,
+
+"丙":4,
+"辛":4,
+
+"丁":6,
+"壬":6,
+
+"戊":8,
+"癸":8
+
+};
+
+
+
+let stemIndex =
+(
+startStem[dayGan]
++
+branchIndex
+)%10;
 
 
 
 return {
 
 
-zhi:branch
+gan:
+heavenlyStems[stemIndex],
+
+
+zhi:
+earthlyBranches[branchIndex]
 
 
 };
 
 
 }
+
+
 
 
 
@@ -187,8 +229,27 @@ solarMonth
 
 
 
+
+/*
+日柱暂时保留接口
+下一步替换为儒略日算法
+*/
+
+let dayPillar={
+
+gan:"待计算",
+
+zhi:"待计算"
+
+};
+
+
+
 let hourPillar =
-calculateHour(hour);
+calculateHour(
+hour,
+dayPillar.gan
+);
 
 
 
@@ -210,13 +271,8 @@ month:
 monthPillar,
 
 
-day:{
-
-gan:"待计算",
-
-zhi:"待计算"
-
-},
+day:
+dayPillar,
 
 
 hour:
@@ -228,7 +284,7 @@ hourPillar
 
 
 dayMaster:
-"待计算"
+dayPillar.gan
 
 
 };
