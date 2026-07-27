@@ -1,17 +1,12 @@
 /*
-日柱计算
+日柱
 
-校准：
-1984-01-10 = 癸卯日
-
+1984-01-10 = 癸卯
 */
 
 
-function calculateDayPillar(
-year,
-month,
-day
-){
+function calculateDayPillar(year,month,day){
+
 
 
 let jd =
@@ -23,14 +18,9 @@ day
 
 
 
-let baseJD =
-2445709.5;
-
-
-
 let index =
 (
-Math.floor(jd-baseJD)
+Math.floor(jd-2445709.5)
 +
 39
 )
@@ -38,27 +28,15 @@ Math.floor(jd-baseJD)
 
 
 
-if(index<0){
-
-index+=60;
-
-}
-
-
-
 return {
 
 
 gan:
-heavenlyStems[
-index%10
-],
+heavenlyStems[index%10],
 
 
 zhi:
-earthlyBranches[
-index%12
-]
+earthlyBranches[index%12]
 
 
 };
@@ -69,12 +47,7 @@ index%12
 
 
 
-
-function calculateJD(
-year,
-month,
-day
-){
+function calculateJD(year,month,day){
 
 
 if(month<=2){
@@ -85,32 +58,17 @@ month+=12;
 }
 
 
-let A =
-Math.floor(year/100);
+let A=Math.floor(year/100);
 
-
-let B =
-2-A+Math.floor(A/4);
+let B=2-A+Math.floor(A/4);
 
 
 
-return (
-
-Math.floor(365.25*(year+4716))
-
+return Math.floor(365.25*(year+4716))
 +
 Math.floor(30.6001*(month+1))
-
 +
-day
-
-+
-B
-
--
-1524.5
-
-);
+day+B-1524.5;
 
 
 }
